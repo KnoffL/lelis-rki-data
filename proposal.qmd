@@ -1,0 +1,25 @@
+---
+title: "proposal.qmd"
+format: html
+editor: visual
+---
+
+Source and License:
+
+This data is sourced from the palmerpenguins data package. It is published under the CC0 1.0 Universals license.
+
+What is in it?
+
+The data set penguins_raw contains 344 rows and 17 columns. Each row contains the data of one penguin. We expect to mainly use the location data („region“, island“), „data egg“, physiological data („flipper length (mm)“, „Body mass (g)“, „sex“) and the „Individual ID“.
+
+Research questions
+
+Descriptive: What‘s the average weight of penguins on different islands?
+
+Descriptive: Are there differences in flipper length between female and male penguins?
+
+Exploratory/causal: Does a larger bill lead to higher weight? However, due to the nature of the data set, we have no information about development of individual penguins and can therefore only calculate cross-sectional correlations.
+
+Context and target audience:
+
+This research is for penguin enthusiasts for scientific journalism. A great presentation form would be a document with a lot of colorful figures.
