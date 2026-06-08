@@ -177,10 +177,24 @@ $ studyName &lt;chr&gt; "PAL0708", "PAL0708", "PAL0708", "PAL0708", "PAL0708", â
 <p>Analysis plan:</p>
 <p>1. Whatâ€˜s the average weight of penguins on different islands?</p>
 <p>Variables: Body mass (g), Island</p>
+<p>Analytical approach: first descriptive by comparing averages, then t-testing between different groups</p>
+<p>Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes)</p>
+<p>Uncertainties: Will there be enough data for adequate power?</p>
 <p>2. Are there differences in flipper length between female and male penguins?</p>
 <p>Variables: Flipper length (mm), Sex</p>
+<p>Analytical approach: first descriptive by comparing averages, then t-testing between the sexes</p>
+<p>Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes), coding sex as 0 and 1 (not necessary, but common practice)</p>
+<p>Uncertainties: Will there be enough data for adequate power?</p>
 <p>3. Does a larger bill lead to higher weight?</p>
 <p>Variables: Bill depth (mm), Body mass (g)</p>
+<p>Analytical approach: regression analysis, maybe adding other variables to check for confounders</p>
+<p>Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes)</p>
+<p>Uncertainties / Problem: Will there be enough data for adequate power? No real way of showing causality as there may be confounding factors outside the data set</p>
+<p>Workflow organization:</p>
+<p>Code style: tidyverse, enforced with styler linter (not included in the project yet, WOP)</p>
+<p>Packages: number of packages should be kept at a minimum to avoid conflicts between packages but every collaborator can use new packages at their own may.</p>
+<p>Git workflow: people should work on individual branches to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator</p>
+<p>Gitignore: Artefacts from running code will be added to a gitignore file, though it is unclear at this stage what exactly we will include as we do not know the entire requirements of our project just yet</p>
 
 </main>
 <!-- /main column -->
