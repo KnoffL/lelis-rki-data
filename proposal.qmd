@@ -54,9 +54,9 @@ Summary of Bill/Culmen Depth:
 |-------|--------|--------|-------|---------|-------|------|
 | 13.10 | 15.60  | 17.30  | 17.15 | 18.70   | 21.50 | 2    |
 
-![Histogram of Bill depth](images/Bildschirmfoto 2026-06-06 um 01.49.07.png){width="561"}
+![Histogram of Bill depth](images/Bildschirmfoto%202026-06-06%20um%2001.49.07.png){width="561"}
 
-![Relationship between Bill depth and weight](images/Bildschirmfoto 2026-06-06 um 01.50.34.png){width="559"}
+![Relationship between Bill depth and weight](images/Bildschirmfoto%202026-06-06%20um%2001.50.34.png){width="559"}
 
 Quality issues:
 
@@ -65,3 +65,47 @@ Quality issues:
 -no other issues
 
 Solution: Filtering out the observation with missing values for the analysis
+
+Analysis plan:
+
+1\. What‘s the average weight of penguins on different islands?
+
+Variables: Body mass (g), Island
+
+Analytical approach: first descriptive by comparing averages, then t-testing between different groups
+
+Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes)
+
+Uncertainties: Will there be enough data for adequate power?
+
+2\. Are there differences in flipper length between female and male penguins?
+
+Variables: Flipper length (mm), Sex
+
+Analytical approach: first descriptive by comparing averages, then t-testing between the sexes
+
+Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes), coding sex as 0 and 1 (not necessary, but common practice)
+
+Uncertainties: Will there be enough data for adequate power?
+
+3\. Does a larger bill lead to higher weight?
+
+Variables: Bill depth (mm), Body mass (g)
+
+Analytical approach: regression analysis, adding other variables to check for confounders, the graphics definitely show that Species would Species would change the correlation, maybe we will take a look at the interference of sex
+
+Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes)
+
+Uncertainties / Problem: Will there be enough data for adequate power? No real way of showing causality as there may be confounding factors outside the data set. Interfering variables like Species would lead to the Simpson'a paradox.
+
+Workflow organization:
+
+Code style: tidyverse, enforced with styler linter (not included in the project yet, WOP)
+
+Packages: number of packages should be kept at a minimum to avoid conflicts between packages but every collaborator can use new packages at their own may.
+
+Planned packages: "palmerpenguins", "tidyverse", maybe "patchwork" for compact visualization, maybe "narniar" to visually check whether all NAs have been removes
+
+Git workflow: people should work on individual branches to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator; continue the common practice to let the partner confirm the pull request
+
+Gitignore: Artefacts from running code will be added to a gitignore file, though it is unclear at this stage what exactly we will include as we do not know the entire requirements of our project just yet

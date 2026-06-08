@@ -76,6 +76,125 @@ ul.task-list li input[type="checkbox"] {
 <p>Exploratory/causal: Does a larger bill lead to higher weight? However, due to the nature of the data set, we have no information about development of individual penguins and can therefore only calculate cross-sectional correlations.</p>
 <p>Context and target audience:</p>
 <p>This research is for penguin enthusiasts for scientific journalism. A great presentation form would be a document with a lot of colorful figures.</p>
+<p><strong>Initial data analysis:</strong></p>
+<p>Glimpse output:</p>
+<pre><code>Rows: 344
+
+Columns: 17
+
+$ studyName &lt;chr&gt; "PAL0708", "PAL0708", "PAL0708", "PAL0708", "PAL0708", … $ Sample Number &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, … $ Species &lt;chr&gt; "Adelie Penguin (Pygoscelis adeliae)", "Adelie Penguin … $ Region &lt;chr&gt; "Anvers", "Anvers", "Anvers", "Anvers", "Anvers", "Anve… $ Island &lt;chr&gt; "Torgersen", "Torgersen", "Torgersen", "Torgersen", "To… $ Stage &lt;chr&gt; "Adult, 1 Egg Stage", "Adult, 1 Egg Stage", "Adult, 1 E… $ Individual ID &lt;chr&gt; "N1A1", "N1A2", "N2A1", "N2A2", "N3A1", "N3A2", "N4A1",… $ Clutch Completion &lt;chr&gt; "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "No", "No", "… $ Date Egg &lt;date&gt; 2007-11-11, 2007-11-11, 2007-11-16, 2007-11-16, 2007-1… $ Culmen Length (mm) &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.… $ Culmen Depth (mm) &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.… $ Flipper Length (mm) &lt;dbl&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 1… $ Body Mass (g) &lt;dbl&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 425… $ Sex &lt;chr&gt; "MALE", "FEMALE", "FEMALE", NA, "FEMALE", "MALE", "FEMA… $ Delta 15 N (o/oo) &lt;dbl&gt; NA, 8.94956, 8.36821, NA, 8.76651, 8.66496, 9.18718, 9.… $ Delta 13 C (o/oo) &lt;dbl&gt; NA, -24.69454, -25.33302, NA, -25.32426, -25.29805, -25… $ Comments &lt;chr&gt; "Not enough blood for isotopes.", NA, NA, "Adult not sa…</code></pre>
+<p>Summary of Body Mass:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Min</th>
+<th>1st Qu</th>
+<th>Median</th>
+<th>Mean</th>
+<th>3rd Qu.</th>
+<th>Max.</th>
+<th>NA’s</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2700</td>
+<td>3550</td>
+<td>4050</td>
+<td>4202</td>
+<td>4750</td>
+<td>6300</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Summary of Flipper Length:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Min</th>
+<th>1st Qu</th>
+<th>Median</th>
+<th>Mean</th>
+<th>3rd Qu.</th>
+<th>Max.</th>
+<th>NA’s</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>172.0</td>
+<td>190.0</td>
+<td>197.0</td>
+<td>200.9</td>
+<td>213.0</td>
+<td>231.0</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Summary of Bill/Culmen Depth:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Min</th>
+<th>1st Qu</th>
+<th>Median</th>
+<th>Mean</th>
+<th>3rd Qu.</th>
+<th>Max.</th>
+<th>NA’s</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>13.10</td>
+<td>15.60</td>
+<td>17.30</td>
+<td>17.15</td>
+<td>18.70</td>
+<td>21.50</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Bildschirmfoto%202026-06-06%20um%2001.49.07.png" class="img-fluid figure-img" width="561"></p>
+<figcaption>Histogram of Bill depth</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Bildschirmfoto%202026-06-06%20um%2001.50.34.png" class="img-fluid figure-img" width="559"></p>
+<figcaption>Relationship between Bill depth and weight</figcaption>
+</figure>
+</div>
+<p>Quality issues:</p>
+<p>-not all variable are filled out for every observation, but with pretty high complete rates</p>
+<p>-no other issues</p>
+<p>Solution: Filtering out the observation with missing values for the analysis</p>
+<p>Analysis plan:</p>
+<p>1. What‘s the average weight of penguins on different islands?</p>
+<p>Variables: Body mass (g), Island</p>
+<p>Analytical approach: first descriptive by comparing averages, then t-testing between different groups</p>
+<p>Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes)</p>
+<p>Uncertainties: Will there be enough data for adequate power?</p>
+<p>2. Are there differences in flipper length between female and male penguins?</p>
+<p>Variables: Flipper length (mm), Sex</p>
+<p>Analytical approach: first descriptive by comparing averages, then t-testing between the sexes</p>
+<p>Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes), coding sex as 0 and 1 (not necessary, but common practice)</p>
+<p>Uncertainties: Will there be enough data for adequate power?</p>
+<p>3. Does a larger bill lead to higher weight?</p>
+<p>Variables: Bill depth (mm), Body mass (g)</p>
+<p>Analytical approach: regression analysis, maybe adding other variables to check for confounders</p>
+<p>Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes)</p>
+<p>Uncertainties / Problem: Will there be enough data for adequate power? No real way of showing causality as there may be confounding factors outside the data set</p>
+<p>Workflow organization:</p>
+<p>Code style: tidyverse, enforced with styler linter (not included in the project yet, WOP)</p>
+<p>Packages: number of packages should be kept at a minimum to avoid conflicts between packages but every collaborator can use new packages at their own may.</p>
+<p>Git workflow: people should work on individual branches to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator</p>
+<p>Gitignore: Artefacts from running code will be added to a gitignore file, though it is unclear at this stage what exactly we will include as we do not know the entire requirements of our project just yet</p>
 
 </main>
 <!-- /main column -->

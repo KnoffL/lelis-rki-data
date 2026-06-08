@@ -1,8 +1,7 @@
 library("skimr")
 library("palmerpenguins")
 library("naniar")
-library("ggplot2")
-library("dplyr")
+library("tidyverse")
 
 View(penguins_raw)
 head(penguins_raw)
