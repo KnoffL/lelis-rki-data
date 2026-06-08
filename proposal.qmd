@@ -106,6 +106,6 @@ Packages: number of packages should be kept at a minimum to avoid conflicts betw
 
 Planned packages: "palmerpenguins", "tidyverse", maybe "patchwork" for compact visualization, maybe "narniar" to visually check whether all NAs have been removes
 
-Git workflow: people should work on individual branches to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator; continue the common practice to let the partner confirm the pull request
+Git workflow: people should work on individual branches, named after the author, to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator or when meeting up in one place; continue the common practice to let the partner confirm the pull request
 
 Gitignore: Artefacts from running code will be added to a gitignore file, though it is unclear at this stage what exactly we will include as we do not know the entire requirements of our project just yet
