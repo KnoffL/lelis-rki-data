@@ -100,7 +100,13 @@ Uncertainties / Problem: Will there be enough data for adequate power? No real w
 
 Workflow organization:
 
-Code style: tidyverse, enforced with styler linter (not included in the project yet, WOP)
+Code style: tidyverse, enforced with styler linter (contributors will run
+
+```         
+styler:::style_active_file()
+```
+
+on their changes before committing)
 
 Packages: number of packages should be kept at a minimum to avoid conflicts between packages but every collaborator can use new packages at their own may.
 
