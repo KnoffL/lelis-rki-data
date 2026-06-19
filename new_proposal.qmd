@@ -67,39 +67,29 @@ Quality issues:
 
 -because of the use of indicators system the variable "Indikator_ID" basically contains different attributes/variables; that is unhandy to work with
 
-Solution: Filtering out the observation with missing values for the analysis
+Solution:
 
 Analysis plan:
 
-1\. What‘s the average weight of penguins on different islands?
+1\.
 
-Variables: Body mass (g), Island
+Variables:
 
-Analytical approach: first descriptive by comparing averages, then t-testing between different groups
+Analytical approach:
 
-Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes)
+Cleaning / transformation steps needed:
 
-Uncertainties: Will there be enough data for adequate power?
+Uncertainties:
 
-2\. Are there differences in flipper length between female and male penguins?
+2\.
 
-Variables: Flipper length (mm), Sex
+Variables:
 
-Analytical approach: first descriptive by comparing averages, then t-testing between the sexes
+Analytical approach:
 
-Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes), coding sex as 0 and 1 (not necessary, but common practice)
+Cleaning / transformation steps needed:
 
-Uncertainties: Will there be enough data for adequate power?
-
-3\. Does a larger bill lead to higher weight?
-
-Variables: Bill depth (mm), Body mass (g)
-
-Analytical approach: regression analysis, adding other variables to check for confounders, the graphics definitely show that Species would Species would change the correlation, maybe we will take a look at the interference of sex
-
-Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes)
-
-Uncertainties / Problem: Will there be enough data for adequate power? No real way of showing causality as there may be confounding factors outside the data set. Interfering variables like Species would lead to the Simpson'a paradox.
+Uncertainties:
 
 Workflow organization:
 
@@ -107,8 +97,6 @@ Code style: tidyverse, enforced with styler linter (not included in the project 
 
 Packages: number of packages should be kept at a minimum to avoid conflicts between packages but every collaborator can use new packages at their own may.
 
-Planned packages: "palmerpenguins", "tidyverse", maybe "patchwork" for compact visualization, maybe "narniar" to visually check whether all NAs have been removes
-
-Git workflow: people should work on individual branches, named after the author, to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator or when meeting up in one place; continue the common practice to let the partner confirm the pull request
+Planned packages: Git workflow: people should work on individual branches, named after the author, to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator or when meeting up in one place; continue the common practice to let the partner confirm the pull request
 
 Gitignore: Artefacts from running code will be added to a gitignore file, though it is unclear at this stage what exactly we will include as we do not know the entire requirements of our project just yet
