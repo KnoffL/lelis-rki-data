@@ -1,0 +1,114 @@
+---
+title: "alt_proposal.qmd"
+format: html
+editor: visual
+---
+
+Source and License:
+
+This data is sourced from the the health report of the Robert-Koch-Institut (<https://github.com/robert-koch-institut/Gesundheitsberichterstattung_-_Daten_zu_nichtuebertragbaren_Erkrankungen?tab=CC-BY-4.0-1-ov-file#readme>) and it is publicly available under the CC-BY-4.0 license.
+
+What is in it?
+
+The data set contains health data on non-infectious diseases in the german population. It has 29 columns and 53,036 rows. Each row constitutes an observation of the monthly prevalence of a specific health behavior or illness (physical or mental) in a sample. The variable "Indikator_ID" gives a identifying number to each indicator (ergo the illness or behavior). The variable "Indikator_Name" is the name of the indicator. A detailled description can be found in the ReadMe under indicator on the website (see link above). The variable "Wert" contains the prevalence of the indicator in percent. The simple size is in the variable "Stichrpobe", the region is under "Region_Name" and
+
+Research questions
+
+1.  How did depressive symptoms develop over time and did a change in social support predict a change in prevalence of depressive symptoms for the following year?
+2.  
+
+Context and target audience:
+
+**Initial data analysis:**
+
+Glimpse output:
+
+```         
+Rows: 53,036
+Columns: 29
+$ Indikator_ID                  <dbl> 1010301, 1010301, 1010301, 1010301, 1010301, 1010301, 1010301, 10103…
+$ Indikator_Name                <chr> "Soziale Unterstützung (ab 18 Jahre)", "Soziale Unterstützung (ab 18…
+$ Kennzahl_ID                   <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ Kennzahl_Name                 <chr> "Soziale Unterstützung", "Soziale Unterstützung", "Soziale Unterstüt…
+$ Kennzahl_Definition           <chr> "Anteil der Erwachsenen mit starker sozialer Unterstützung in %", "A…
+$ Zeitraum_ISO                  <chr> "2009-01-01--2009-12-31", "2009-01-01--2009-12-31", "2009-01-01--200…
+$ Zeitraum_Name                 <chr> "2009", "2009", "2009", "2009", "2009", "2009", "2009", "2009", "200…
+$ Geschlecht_ID                 <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ Geschlecht_Name               <chr> "Gesamt", "Gesamt", "Gesamt", "Gesamt", "Gesamt", "Gesamt", "Gesamt"…
+$ Alter_ID                      <chr> "00+", "00+", "00+", "00+", "00+", "00+", "00+", "00+", "00+", "00+"…
+$ Alter_Name                    <chr> "Alle Altersgruppen", "Alle Altersgruppen", "Alle Altersgruppen", "A…
+$ Region_ID                     <chr> "00", "00", "00", "00", "00", "00", "00", "00", "01", "01", "02", "0…
+$ Region_Name                   <chr> "Deutschland", "Deutschland", "Deutschland", "Deutschland", "Deutsch…
+$ Bildung_Casmin_ID             <dbl> 0, 0, 1, 1, 2, 2, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ Bildung_Casmin_Name           <chr> "Gesamt", "Gesamt", "niedrig", "niedrig", "mittel", "mittel", "hoch"…
+$ GISD_ID                       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ GISD_Name                     <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Berufliche_Qualifikation_ID   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Berufliche_Qualifikation_Name <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Standardisierung_ID           <dbl> 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0,…
+$ Standardisierung_Name         <chr> "beobachtet", "altersstandardisiert", "beobachtet", "altersstandardi…
+$ Wert                          <dbl> 32.6, 32.4, 28.4, 30.0, 34.8, 32.9, 35.8, 35.8, 34.4, 34.4, 34.0, 33…
+$ Unteres_Konfidenzintervall    <dbl> 31.8, 31.6, 26.9, 28.4, 33.6, 31.7, 34.4, 34.1, 30.1, 30.1, 28.7, 28…
+$ Oberes_Konfidenzintervall     <dbl> 33.4, 33.2, 30.0, 31.7, 35.9, 34.2, 37.3, 37.5, 38.9, 39.0, 39.8, 38…
+$ Fälle                         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Stichprobe                    <dbl> 20418, 20418, 4963, 4963, 10319, 10319, 5104, 5104, 737, 737, 459, 4…
+$ Unsicherheit                  <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ Anmerkung                     <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Datenstand                    <date> 2024-11-20, 2024-11-20, 2024-11-20, 2024-11-20, 2024-11-20, 2024-11…
+```
+
+Quality issues:
+
+-one variable has the wring data type (Zeitraum_Name) and many variables are double although integer would be suffiecient
+
+-there is no variable uniquely identifing each row/observation
+
+-some variables have more missing values then existing values (e.g. Fälle, Unteres_Konfidenzintervall)
+
+-because of the use of indicators system the variable "Indikator_ID" basically contains different attributes/variables; that is unhandy to work with
+
+Solution: Filtering out the observation with missing values for the analysis
+
+Analysis plan:
+
+1\. What‘s the average weight of penguins on different islands?
+
+Variables: Body mass (g), Island
+
+Analytical approach: first descriptive by comparing averages, then t-testing between different groups
+
+Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes)
+
+Uncertainties: Will there be enough data for adequate power?
+
+2\. Are there differences in flipper length between female and male penguins?
+
+Variables: Flipper length (mm), Sex
+
+Analytical approach: first descriptive by comparing averages, then t-testing between the sexes
+
+Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes), coding sex as 0 and 1 (not necessary, but common practice)
+
+Uncertainties: Will there be enough data for adequate power?
+
+3\. Does a larger bill lead to higher weight?
+
+Variables: Bill depth (mm), Body mass (g)
+
+Analytical approach: regression analysis, adding other variables to check for confounders, the graphics definitely show that Species would Species would change the correlation, maybe we will take a look at the interference of sex
+
+Cleaning / transformation steps needed: Excluding NAs (first check whether NAs are occuring more often in penguins with certain attributes)
+
+Uncertainties / Problem: Will there be enough data for adequate power? No real way of showing causality as there may be confounding factors outside the data set. Interfering variables like Species would lead to the Simpson'a paradox.
+
+Workflow organization:
+
+Code style: tidyverse, enforced with styler linter (not included in the project yet, WOP)
+
+Packages: number of packages should be kept at a minimum to avoid conflicts between packages but every collaborator can use new packages at their own may.
+
+Planned packages: "palmerpenguins", "tidyverse", maybe "patchwork" for compact visualization, maybe "narniar" to visually check whether all NAs have been removes
+
+Git workflow: people should work on individual branches, named after the author, to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator or when meeting up in one place; continue the common practice to let the partner confirm the pull request
+
+Gitignore: Artefacts from running code will be added to a gitignore file, though it is unclear at this stage what exactly we will include as we do not know the entire requirements of our project just yet
