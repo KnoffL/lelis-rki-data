@@ -57,6 +57,112 @@ $ Anmerkung                     <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
 $ Datenstand                    <date> 2024-11-20, 2024-11-20, 2024-11-20, 2024-11-20, 2024-11-20, 2024-11…
 ```
 
+Summary of key variables
+
+Since the data includes a lot of different indicators which are not seperated into columns but spread over different rows, one can only really calculate the amount of data points at this point (basically, all unique entries of Indikator_Name could be an own column). Calculating means or standard deviations across the indicators does not provide real meaning here. The data is not transformed to make unique entries of Indikator_Name into columns as we are only choosing a small subset of values of Indikator_Name and matching rows would be hard (for example because of differing age categories across indicators). It would also inflate the number of columns.
+
+Missing values:
+
+```{r}
+library(readr)
+
+df <- read_tsv("GBE_Indikatoren_nichtuebertragbarer_Erkrankungen.tsv")
+
+key_vars <- c(
+ "Kennzahl_Name", "Zeitraum_Name", "Region_Name",
+ "Geschlecht_Name", "Alter_Name", "Bildung_Casmin_Name",
+ "Wert", "Unteres_Konfidenzintervall", "Oberes_Konfidenzintervall",
+ "Stichprobe", "Unsicherheit"
+)
+
+df %>%
+ select(all_of(key_vars)) %>%
+ summarise(across(everything(), ~ sum(is.na(.)))) %>%
+ pivot_longer(everything(), names_to = "Variable", values_to = "N_Missing") %>%
+ mutate(Pct_Missing = round(N_Missing / nrow(df) * 100, 1)) %>%
+ print(n = Inf)
+```
+
+There are a lot of values missing for confidence intervals. This is partly explained by "Unsicherheit" being to low or the indicator not being an estimate based on a sample. That also explains the missing values in sample.
+
+Gender:
+
+```{r}
+df %>%
+   group_by(Geschlecht_Name) %>%
+   summarise(
+     N      = n(),
+   ) %>%
+   print()
+```
+
+There seems to be roughly similar depth in data for women and men.
+
+Age:
+
+```{r}
+df %>%
+   group_by(Alter_Name) %>%
+   summarise(
+     N      = n(),
+   ) %>%
+   print()
+```
+
+Since categories are inconsistent, this is difficult to interpret.
+
+Education:
+
+```{r}
+df %>%
+   group_by(Bildung_Casmin_Name) %>%
+   summarise(
+     N      = n(),
+   ) %>%
+   print()
+```
+
+Region_Name:
+
+```{r}
+df %>%
+   group_by(Region_Name) %>%
+   summarise(
+     N      = n(),
+   ) %>%
+   print(n=60)
+```
+
+This shows that the data contains German states (majority), European countires and other (West, Ost, ...). For our analyses we expect to mainly use German data on a federal and state level.
+
+Stichprobe:
+
+```{r}
+df %>%
+  summarise(
+    Mean   = round(mean(Stichprobe, na.rm = TRUE), 2),
+    SD     = round(sd(Stichprobe, na.rm = TRUE), 2),
+    Median = round(median(Stichprobe, na.rm = TRUE), 2),
+    Min    = round(min(Stichprobe, na.rm = TRUE), 2),
+    Max    = round(max(Stichprobe, na.rm = TRUE), 2)  
+  ) %>%
+  print()
+
+```
+
+Unsicherheit:
+
+```{r}
+df %>%
+   group_by(Unsicherheit) %>%
+   summarise(
+     N      = n(),
+   ) %>%
+   print()
+```
+
+Unsicherheit is fairly small for most rows but should be checked for relevant indicators regardless.
+
 Quality issues:
 
 -one variable has the wrong data type (Zeitraum_Name) and many variables are double although integer would be suffiecient
@@ -66,6 +172,12 @@ Quality issues:
 -some variables have more missing values then existing values (e.g. Fälle, Unteres_Konfidenzintervall)
 
 -because of the use of indicators system the variable "Indikator_ID" basically contains different attributes/variables; that is unhandy to work with
+
+-Age categories are inconsistent, so depending on what indicators we want to combine into an analysis, we might not be able to use Age as a control variable
+
+-Bildung_Casmin_Name is not available across all indicators so we might not be able to use that as a control variable depending on the analysis.
+
+-Sample size is really small for some indicators. We will have to keep in mind to check the sample size for relevant indicators and calculate power.
 
 Solution:
 
