@@ -233,6 +233,8 @@ Cleaning / transformation steps needed:
 
 - remove the observations that are not age-standardized
 
+- calculate weighted average for values of each year and education level
+
 Uncertainties:
 
 - relevant observations are only present for the years 2014, 2019, 2022 and 2023; thus fluctuations over few years might distort the picture
