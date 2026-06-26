@@ -10,12 +10,12 @@ This data is sourced from the the health report of the Robert-Koch-Institut (<ht
 
 What is in it?
 
-The data set contains health data on non-infectious diseases in the german population. It has 29 columns and 53,036 rows. Each row constitutes an observation of the monthly prevalence of a specific health behavior or illness (physical or mental) in a sample. The variable "Indikator_ID" gives a identifying number to each indicator (ergo the illness or behavior). The variable "Indikator_Name" is the name of the indicator. A detailled description can be found in the ReadMe under indicator on the website (see link above). The variable "Wert" contains the prevalence of the indicator in percent. The simple size is in the variable "Stichrpobe", the region is under "Region_Name" and
+The data set contains health data on non-infectious diseases in the german population. It has 29 columns and 53,036 rows. Each row constitutes an observation of the monthly prevalence of a specific health behavior or illness (physical or mental) in a sample. The variable "Indikator_ID" gives a identifying number to each indicator (ergo the illness or behavior). The variable "Indikator_Name" is the name of the indicator. A detailled description can be found in the ReadMe under indicator on the website (see link above). The variable "Wert" contains the prevalence of the indicator in percent. The simple size is in the variable "Stichprobe", the region is under "Region_Name" and
 
 Research questions
 
-1.  How did depressive symptoms develop over time and did a change in social support predict a change in prevalence of depressive symptoms for the following year?
-2.  
+1.  question proposal: How did depressive symptoms develop over time and do depressive symptoms correlate with social support (Indikator_ID = `1010301`) in different regions of Germany?
+2.  question proposal: What are differences in depressive symptoms between people of different educational levels (Bildung_Casmin_Name)? And did depressive symptoms of the most educated group decrease?
 
 Context and target audience:
 

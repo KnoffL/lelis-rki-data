@@ -1,5 +1,5 @@
 # This is the exploration of a alternative messier data set
-
+library(lintr)
 library(readr)
 library(tidyverse)
 library(visdat)
@@ -21,6 +21,8 @@ rki_data %>%
 rki_data %>%
   filter(!is.na(Fälle)) %>%
   nrow()
+
+lint(filename = "rki_Skript.R")
 
 # Visualise column types
 vis_dat(rki_data, warn_large_data = FALSE)
