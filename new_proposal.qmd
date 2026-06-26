@@ -10,7 +10,7 @@ This data is sourced from the the health report of the Robert-Koch-Institut (<ht
 
 What is in it?
 
-The data set contains health data on non-infectious diseases in the german population. It has 29 columns and 53,036 rows. Each row constitutes an observation of the monthly prevalence of a specific health behavior or illness (physical or mental) in a sample. The variable "Indikator_ID" gives a identifying number to each indicator (ergo the illness or behavior). The variable "Indikator_Name" is the name of the indicator. A detailled description can be found in the ReadMe under indicator on the website (see link above). The variable "Wert" contains the prevalence of the indicator in percent. The simple size is in the variable "Stichprobe", the region is under "Region_Name" and
+The data set contains health data on non-infectious diseases in the german population. It has 29 columns and 53,036 rows. Each row constitutes an observation of the monthly prevalence of a specific health behavior or illness (physical or mental) in a sample. The variable "Indikator_ID" gives a identifying number to each indicator (ergo the illness or behavior). The variable "Indikator_Name" is the name of the indicator. A detailed description can be found in the ReadMe under indicator on the website (see link above). The variable "Wert" contains the prevalence of the indicator in percent. The simple size is in the variable "Stichprobe", the region is under "Region_Name" and
 
 Research questions
 
@@ -18,6 +18,8 @@ Research questions
 2.  question proposal: What are differences in depressive symptoms between people of different educational levels (Bildung_Casmin_Name)? And did depressive symptoms of the most educated group decrease?
 
 Context and target audience:
+
+Mental health problems represent a struggle for affected individuals, their significant others and society. The recent crisis like the pandemic have exacerbated the problem significantly. This data analysis can be the groundwork for public policy and designers of the health problem in Germany. We want to show how depressive symptoms have developed over time and how two prominently assumed resilience factors stand in relation to this development. Building on the results on the analysis one could initiate targeted prevention programs and estimate the effectiveness of social-support-based interventions.
 
 **Initial data analysis:**
 
