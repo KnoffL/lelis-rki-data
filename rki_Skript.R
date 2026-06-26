@@ -18,8 +18,9 @@ rki_data %>%
   filter(Indikator_ID == 2040202) %>%
   nrow()
 
+# number of missing values in Fälle
 rki_data %>%
-  filter(!is.na(Fälle)) %>%
+  filter(is.na(Fälle)) %>%
   nrow()
 
 lint(filename = "rki_Skript.R")
@@ -78,3 +79,29 @@ rki_data <- rki_data %>%
 # Add unique identifier per row
 rki_data <- rki_data %>%
   mutate(ID = row_number())
+
+#distribution of variable Bildung_Casmin_Name
+rki_data %>% 
+  group_by(Bildung_Casmin_Name) %>%
+  summarise(
+    n = n()
+  )
+
+#isolate and examine observations 
+#where distinct education level and depressive symptoms are given 
+#and age-standardized
+bildung_symptom <- rki_data %>%
+  filter(Indikator_ID == 2040202) %>%
+  filter(!is.na(Bildung_Casmin_Name)) %>%
+  filter(Bildung_Casmin_Name != "Gesamt") %>%
+  filter(Standardisierung_ID == 3)
+
+#function to calculate weighted average
+weighted_average <- function(value, sample_size){
+  s <- sum(sample_size)
+  result <- 0
+  for(x in 1:length(value)){
+    result <- result + value[x] * sample_size / s
+  }
+  return(result)
+}
