@@ -165,9 +165,15 @@ Unsicherheit is fairly small for most rows but should be checked for relevant in
 
 Quality issues:
 
--one variable has the wrong data type (Zeitraum_Name) and many variables are double although integer would be suffiecient
+-one variable has the wrong data type (Zeitraum_Name) RESOLVED: By creating Start_Beobachtungszeitraum and Ende_Beobachtungszeitraum from Zeitraum_ISO we got the information we need and it is often times more precise than in Zeitraum_Name. Converting Zeitraum_Name to date would result in some form of data loss as it is in varying formats (e.g. 2024/25, 2009).
 
--there is no variable uniquely identifing each row/observation
+```{r}
+unique(rki_data$Zeitraum_Name)
+```
+
+\- many variables are double although integer would be sufficient ADDRESSED in rki_Skript
+
+-there is no variable uniquely identifing each row/observation ADDRESSED in rki_Skript
 
 -some variables have more missing values then existing values (e.g. Fälle, Unteres_Konfidenzintervall)
 
