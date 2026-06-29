@@ -100,6 +100,14 @@ View(rki_data_1)
 
 # Check if Unsicherheit is ever not zero
 rki_data_1_Unsicherheit_low <- rki_data_1 %>%
-  filter(Unsicherheit > 0)
+  filter(Unsicherheit_socialsupport > 0 | Unsicherheit_depression > 0)
 
 View(rki_data_1_Unsicherheit_low)
+# Depression is 1 8 times, 2 one time - 7 of the times it is in 2019
+# Wert is not reported when Unsicherheit is 2, so we cannot analyze this data
+# RKI says the following about Unsicherheit = 1: 'Berichtet, jedoch als unsicher
+# markiert, werden Werte, die auf weniger als 10 Fällen basieren, deren
+# Konfidenzintervall breiter als 20 Prozentpunkte ist oder wenn die Untergrenze
+# weniger als ⅔ des Schätzers beträgt (Variationskoeffizient ≤ 16,6 %).
+# Aufgrund der Unsicherheit sollten diese Werte mit Vorsicht interpretiert werden.'
+# We will move on with our analyses for now but will keep it in mind.
