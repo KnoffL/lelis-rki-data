@@ -242,7 +242,7 @@ Analytical approach:
 4.  See if there is a similar Stichprobengröße for the different subgroups
 5.  Correlation between age-adjusted depression and social support over time
 6.  Zoom in on potential differences for gender (so seperate correlations for women and men), same for regions
-7.  Calculate linear regression with depression as dependent variable and social support gender, and region as independent variables
+7.  Calculate linear regression with depression as dependent variable and social support, age, gender, and region as independent variables – Edit: Unfortunately, the data only allowed for an analysis with social support with region and another analysis with social support, age and gender
 8.  Calculate the analyses with Inverse-Variance Weighting
 
 Cleaning / transformation steps needed: General data cleaning (data types), transform data so that one year is one row (match indicators)
