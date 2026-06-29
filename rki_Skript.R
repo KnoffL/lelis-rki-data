@@ -217,11 +217,30 @@ conf_up <- function(value, variance, n){
 }
 #functions appear to work (yay!)
 
-# we will add the confidence intervals to our aggergated tibble
+# we will add the confidence intervals to our aggregated tibble
 aggreg <- aggreg %>% 
   mutate(low_confint = conf_low(Wert, variance, sample_size)) %>%
   mutate(up_confint = conf_up(Wert, variance, sample_size))
 
 #we can see that the intervals never overlap except once!
 
+#second part of the research question: did the gap of depressive symptoms
+#between the high education group and the general education group decline?
+
+#data only with high and general group:(bildung2 because it is the second part)
+#this time we will have to remove an observation with an NA-value for depression
+bildung2 <- rki_data %>%
+  filter(Indikator_ID == 2040202) %>%
+  filter(!is.na(Bildung_Casmin_Name)) %>%
+  filter(Bildung_Casmin_Name == "Gesamt" |Bildung_Casmin_Name == "hoch") %>%
+  filter(Standardisierung_ID == 3) %>%
+  filter(!is.na(Wert))
+
+# calculate the point estimators again
+aggreg2 <- bildung2 %>%
+  group_by(Zeitraum_Name, Bildung_Casmin_Name) %>%
+  summarize(Wert = weighted_average(Wert, Stichprobe))
+
+# I can already see that the difference doesn't become smaller; I will plot 
+#a graph
 
