@@ -403,3 +403,43 @@ summary(model_interaction_ivw)
 # data is needed to properly explore the effects we were looking for.
 # 2) there is no region x age x gender data, which would help to find explanations for
 # the difference in results for region vs age and gender.
+
+# Temporal development of depression over time
+rki_data_1_2 <- rki_data %>%
+  filter(Indikator_ID == 2040202) %>% # Get depression rows
+  filter(Standardisierung_ID == 3) %>% # Get age-adjusted data
+  filter(Bildung_Casmin_ID == 0) %>% # Get data across education levels
+  filter(Geschlecht_ID == 0) %>%
+  filter(Alter_ID == "00+") %>%
+  mutate(Jahr = as.numeric(Zeitraum_Name))
+
+# Germany-wide
+rki_data_1_2_ger <- rki_data_1_2 %>%
+  filter(Region_ID == 0)
+cor.test(rki_data_1_2_ger$Jahr, rki_data_1_2_ger$Wert)
+# Not significant (same problem as above with n=4 because of population-wide
+# aggregated data), but descriptive trend for more depression over time.
+
+View(rki_data_1_2_ger)
+# Decrease from 2014 to 2019, then sharp increase
+
+# Per region, only two time points 2014 to 2019
+rki_data_1_2_regional <- rki_data_1_2 %>%
+  filter(Region_ID != 0)
+
+rki_data_1_2_regional %>%
+  group_by(Region_Name) %>%
+  summarise(
+    n = sum(!is.na(Wert)),
+    Wert_first = first(Wert[!is.na(Wert)]),
+    Wert_last = last(Wert[!is.na(Wert)]),
+    Jahr_first = first(Jahr[!is.na(Wert)]),
+    Jahr_last = last(Jahr[!is.na(Wert)]),
+    absolute_veraenderung = Wert_last - Wert_first,
+    prozentuale_veraenderung = (Wert_last - Wert_first) / Wert_first * 100,
+    warning = ifelse(n < 2, "Nur ein Zeitpunkt - keine Veränderung berechenbar", NA_character_)
+  ) %>%
+  arrange(prozentuale_veraenderung)
+# Taken together, there is evidence for a wide-spread decrease in depression rates
+# between 2014 and 2019 except for Thüringen, with a federal increase after,
+# though the data is lacking regional granularity after 2019
