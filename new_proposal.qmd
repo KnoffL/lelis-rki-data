@@ -83,6 +83,8 @@ Missing values:
 
 ```{r}
 library(readr)
+library(tidyr)
+library(dplyr)
 
 df <- read_tsv("GBE_Indikatoren_nichtuebertragbarer_Erkrankungen.tsv")
 
