@@ -194,4 +194,5 @@ ggplot(rki_data_1_age_sample_size, aes(x = Stichprobe_socialsupport)) +
   labs(title = "Distribution of Sample Sizes for Social Support in Age Samples",
        x = "Sample Size",
        y = "Count")
+
 # Sample sizes vary a lot for all inspected combinations, that is important to keep in mind
