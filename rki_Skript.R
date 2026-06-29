@@ -78,3 +78,10 @@ rki_data <- rki_data %>%
 # Add unique identifier per row
 rki_data <- rki_data %>%
   mutate(ID = row_number())
+
+# Get and view relevant rows for first research question
+rki_data_1 <- rki_data %>%
+  filter(Indikator_ID == 2040202 | Indikator_ID == 1010301) %>% # Get depression and social support rows
+  filter(Standardisierung_ID == 3) # Get age-adjusted data
+
+View(rki_data_1)
