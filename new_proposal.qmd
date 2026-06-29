@@ -195,7 +195,7 @@ unique(rki_data$Zeitraum_Name)
 
 -there is no variable uniquely identifing each row/observation ADDRESSED in rki_Skript
 
--some variables have more missing values then existing values (e.g. Fälle, Unteres_Konfidenzintervall)
+-some variables have more missing values then existing values (e.g. Fälle, Unteres_Konfidenzintervall) –\> Solution: We will our analysis on measures that can be calculated with what is given, whilst reflecting whether the selection of sepcific observations might result in a bias
 
 -because of the use of indicators system the variable "Indikator_ID" basically contains different attributes/variables; that is unhandy to work with
 
@@ -205,11 +205,9 @@ unique(rki_data$Zeitraum_Name)
 
 -Sample size is really small for some indicators. We will have to keep in mind to check the sample size for relevant indicators and calculate power.
 
-Solution:
+Solution: (adressed in the individual bullet points)
 
 Analysis plan:
-
-- use functions where sensible e.g. to calculate weighted averages
 
 1\.
 
@@ -245,12 +243,18 @@ Code style: tidyverse, enforced with styler linter (not included in the project 
 
 Packages: number of packages should be kept at a minimum to avoid conflicts between packages but every collaborator can use new packages at their own may.
 
+If we have to write a relevant amount of functions for our analysis we might sum them up in a package and add instructing comments via roxygen2.
+
 Planned packages:
 
-Git workflow: people should work on individual branches, named after the author, to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator or when meeting up in one place; continue the common practice to let the partner confirm the pull request.
+Git workflow: People should work on individual branches, named after the author, to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator or when meeting up in one place; continue the common practice to let the partner confirm the pull request. Once the pull request is accepted the branch should be deleted.
 
-If a mistake is noticed the partner is informed and the change can be inspected by using the log function and reversed with git restore.
+We will generally not work on main. Exception: if we work together in the moment or ask the partner for approval.
 
-if we notice, that we have to repeat a code snippet a lot we can think of a sensible function to accelerate the analysis.
+If a mistake is noticed the partner is informed and the change can be inspected by using the log function and reversed with git restore. If a correction needs to be made, while the current work is unfinished, one might use git stash to save the progress (and recall with git stash pop).
 
-Gitignore: Artefacts from running code will be added to a gitignore file, though it is unclear at this stage what exactly we will include as we do not know the entire requirements of our project just yet
+If a merge conflict occurs on a relevant part (e.g. something important for the analysis, not just wordings), the partner is consulted and the better version shall be discussed together. If the partner is unavailable at the time, one should resolve the conflict and add the alternate version, so that the decision can be done later on.
+
+if we notice, that we have to repeat a code snippet a lot we can think of a sensible function to accelerate the analysis. If the use of a function is unclear or prone to mistakes, we will validate the function input (e.g. if/ stop() ).
+
+Gitignore: Artefacts from running code will be added to a gitignore file, though it is unclear at this stage what exactly we will include as we do not know the entire requirements of our project just yet.

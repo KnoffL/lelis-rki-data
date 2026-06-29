@@ -97,9 +97,15 @@ bildung_symptom <- rki_data %>%
   filter(Standardisierung_ID == 3)
 
 #function to calculate weighted average
+#'@description value should contain the values to be summed up, sample_size
+#'indicates the weight of the value with the same position, the weight is 
+#'#'calculated by deviding the individual sample_size value with the summ of 
+#'sample_size
+#'@param name value a numeric vector
+#'@param name sample_size a numeric vector
 weighted_average <- function(value, sample_size){
-  if(length(value) != length(sample_size)){
-    stop("The two input parameters don't have the same length")
+  if(!is.vector(value) | !is.vector(sample_size)){
+    stop("At least one of the inputs isn't a vector")
   }
   s <- sum(sample_size)
   result <- 0
@@ -108,4 +114,5 @@ weighted_average <- function(value, sample_size){
   }
   return(result)
 }
-#function was corrected tested on examplary vectors and stress tested
+#function was corrected, tested on examplary vectors and stress tested
+
