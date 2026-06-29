@@ -196,7 +196,7 @@ Quality issues:
 -one variable has the wrong data type (Zeitraum_Name) RESOLVED: By creating Start_Beobachtungszeitraum and Ende_Beobachtungszeitraum from Zeitraum_ISO we got the information we need and it is often times more precise than in Zeitraum_Name. Converting Zeitraum_Name to date would result in some form of data loss as it is in varying formats (e.g. 2024/25, 2009).
 
 ```{r}
-unique(rki_data$Zeitraum_Name)
+unique(df$Zeitraum_Name)
 ```
 
 \- many variables are double although integer would be sufficient ADDRESSED in rki_Skript
@@ -223,11 +223,65 @@ Analysis plan:
 
 Variables:
 
+- Indikator_ID
+
+- time variable depends on whether the time intervals are entire years, let's see:
+
+```{r}
+rki_data_1_1 <- df %>% 
+  filter(Indikator_ID == '2040202' | Indikator_ID == '1010301')
+
+unique(rki_data_1_1$Zeitraum_ISO)
+```
+
+Let's see whether Zeitraum_Name is sufficient then:
+
+```{r}
+unique(rki_data_1_1$Zeitraum_Name)
+```
+
+-\> it is, so it is easiest to go with that column
+
+- Geschlecht_ID and Alter_ID as controlling variables
+
+- Region_ID
+
+- Standardisierung_ID: There are age-adjusted and raw data. As we, in a part of our analyses, want to control for age, we should only use the age-adjusted data if the age ranges are rather wide. So let's look at that:
+
+```{r}
+unique(rki_data_1_1$Alter_Name)
+```
+
+-\> they are, so we will focus on age-adjusted data (Standardisierung_ID == 3)
+
+- Stichprobe
+
+- Unteres_Konfidenzintervall
+
+- Oberes_Konfidenzintervall
+
+- Wert
+
+- Unsicherheit
+
 Analytical approach:
 
-Cleaning / transformation steps needed:
+1.  Data cleaning
+2.  Data transformation
+3.  See if all data can be used (Unsicherheit)
+4.  See if there is a similar Stichprobengröße for the different subgroups
+5.  Correlation between age-adjusted depression and social support over time
+6.  Zoom in on potential differences for gender (so seperate correlations for women and men), same for regions
+7.  Calculate linear regression with depression as dependent variable and social support, age, gender, and region as independent variables – Edit: Unfortunately, the data only allowed for an analysis with social support with region and another analysis with social support, age and gender
+8.  Calculate the analyses with Inverse-Variance Weighting
+
+Cleaning / transformation steps needed: General data cleaning (data types), transform data so that one year is one row (match indicators)
 
 Uncertainties:
+
+- Some sub-groups might get pretty small - if the subgroups vary a lot in size, the Inverse-Variance Weighting might be skewed. But we will cross that bridge when we come to it.
+
+- To keep the analytical complexity in a range that I can handle, I will not look at education more closely. It is possible, however, that education moderates the relationship between depression and social support.
 
 2\.
 
