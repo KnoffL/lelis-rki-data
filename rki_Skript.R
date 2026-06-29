@@ -267,10 +267,11 @@ rki_data_1_corr_regional %>%
 # Regression analysis
 # Social support as only predictor
 model_social_support <- lm(Wert_depression ~ Wert_socialsupport,
-                        data = rki_data_1 %>%
-                          filter(Region_ID == 0 &
-                                   Geschlecht_ID == 0 &
-                                   Alter_ID == "00+"))
+  data = rki_data_1 %>%
+    filter(Region_ID == 0 &
+      Geschlecht_ID == 0 &
+      Alter_ID == "00+")
+)
 summary(model_social_support)
 # Descriptively, more social support is associated with more cases of depression
 # However, the relationship and the model are not significant
@@ -279,42 +280,49 @@ summary(model_social_support)
 # do not have the data at such a granular level
 # Linear regression with social support and regions as IVs
 model_regional <- lm(Wert_depression ~ Wert_socialsupport + factor(Region_ID),
-                     data = rki_data_1 %>%
-                       filter(Alter_ID == "00+" & Region_ID != 0 & Geschlecht_ID == 0))
+  data = rki_data_1 %>%
+    filter(Alter_ID == "00+" & Region_ID != 0 & Geschlecht_ID == 0)
+)
 summary(model_regional)
 # Here, social support is significantly negatively associated with depression but
 # no variance is explained and the model is not significant
 
 # Linear regression with social support, age, and gener as IVs
 # No interaction
-model_age_gender <- lm(Wert_depression ~ Wert_socialsupport +
-                         factor(Geschlecht_ID) +
-                         factor(Alter_ID),
-                       data = rki_data_1 %>%
-                         filter(Region_ID == 0 &
-                                  Geschlecht_ID != 0 &
-                                  Alter_ID != "00+"))
+model_age_gender <- lm(
+  Wert_depression ~ Wert_socialsupport +
+    factor(Geschlecht_ID) +
+    factor(Alter_ID),
+  data = rki_data_1 %>%
+    filter(Region_ID == 0 &
+      Geschlecht_ID != 0 &
+      Alter_ID != "00+")
+)
 summary(model_age_gender)
 # Here, social support is non-significantly positively correlated with depression
 # The age group 65-79 has a significantly lower depression rate
 # The model is significant
 # However, that seems to be largely due to age, not social support:
-model_age_gender_without_sosu <- lm(Wert_depression ~ factor(Geschlecht_ID) +
-                         factor(Alter_ID),
-                       data = rki_data_1 %>%
-                         filter(Region_ID == 0 &
-                                  Geschlecht_ID != 0 &
-                                  Alter_ID != "00+"))
+model_age_gender_without_sosu <- lm(
+  Wert_depression ~ factor(Geschlecht_ID) +
+    factor(Alter_ID),
+  data = rki_data_1 %>%
+    filter(Region_ID == 0 &
+      Geschlecht_ID != 0 &
+      Alter_ID != "00+")
+)
 summary(model_age_gender_without_sosu)
 # Here, both gender (male -> less depression) and age group 65-79 are relevant predictors
 # and the model explains almost as much variance as with social support
 # Interaction
-model_interaction <- lm(Wert_depression ~ Wert_socialsupport * factor(Geschlecht_ID) +
-                          Wert_socialsupport * factor(Alter_ID),
-                        data = rki_data_1 %>%
-                          filter(Region_ID == 0 &
-                                   Geschlecht_ID != 0 &
-                                   Alter_ID != "00+"))
+model_interaction <- lm(
+  Wert_depression ~ Wert_socialsupport * factor(Geschlecht_ID) +
+    Wert_socialsupport * factor(Alter_ID),
+  data = rki_data_1 %>%
+    filter(Region_ID == 0 &
+      Geschlecht_ID != 0 &
+      Alter_ID != "00+")
+)
 summary(model_interaction)
 # While still significant, the model explains less variance than without the interaction terms.
 # Here, no effect is significant and social support is non-significantly
@@ -332,46 +340,53 @@ rki_data_1 <- rki_data_1 %>%
 
 # Model 1: Regional, IVW
 model_regional_ivw <- lm(Wert_depression ~ Wert_socialsupport + factor(Region_ID),
-                         weights = weight_ivw,
-                         data = rki_data_1 %>%
-                           filter(Alter_ID == "00+" & Region_ID != 0 & Geschlecht_ID == 0))
+  weights = weight_ivw,
+  data = rki_data_1 %>%
+    filter(Alter_ID == "00+" & Region_ID != 0 & Geschlecht_ID == 0)
+)
 summary(model_regional_ivw)
 # The relationship between social support and depression is still negative now.
 # The model is now explaining 34% of variance, compared to none in the unweighted
 # linear regression.
 
 # Model 2: Age and gender, IVW
-model_age_gender_ivw <- lm(Wert_depression ~ Wert_socialsupport +
-                             factor(Geschlecht_ID) +
-                             factor(Alter_ID),
-                           weights = weight_ivw,
-                           data = rki_data_1 %>%
-                             filter(Region_ID == 0 &
-                                      Geschlecht_ID != 0 &
-                                      Alter_ID != "00+"))
+model_age_gender_ivw <- lm(
+  Wert_depression ~ Wert_socialsupport +
+    factor(Geschlecht_ID) +
+    factor(Alter_ID),
+  weights = weight_ivw,
+  data = rki_data_1 %>%
+    filter(Region_ID == 0 &
+      Geschlecht_ID != 0 &
+      Alter_ID != "00+")
+)
 summary(model_age_gender_ivw)
 # Just as in the unweighted linear regression, the only significant relationship is with
 # Age between 65-79 and the model is significant. It explains more variance than before (44 %).
 
 # Model 2 without social support, IVW
-model_age_gender_without_sosu_ivw <- lm(Wert_depression ~ factor(Geschlecht_ID) +
-                                          factor(Alter_ID),
-                                        weights = weight_ivw,
-                                        data = rki_data_1 %>%
-                                          filter(Region_ID == 0 &
-                                                   Geschlecht_ID != 0 &
-                                                   Alter_ID != "00+"))
+model_age_gender_without_sosu_ivw <- lm(
+  Wert_depression ~ factor(Geschlecht_ID) +
+    factor(Alter_ID),
+  weights = weight_ivw,
+  data = rki_data_1 %>%
+    filter(Region_ID == 0 &
+      Geschlecht_ID != 0 &
+      Alter_ID != "00+")
+)
 summary(model_age_gender_without_sosu_ivw)
 # Also here, same results as unweighted, but more pronounced.
 
 # Model 3: Interaction, IVW
-model_interaction_ivw <- lm(Wert_depression ~ Wert_socialsupport * factor(Geschlecht_ID) +
-                              Wert_socialsupport * factor(Alter_ID),
-                            weights = weight_ivw,
-                            data = rki_data_1 %>%
-                              filter(Region_ID == 0 &
-                                       Geschlecht_ID != 0 &
-                                       Alter_ID != "00+"))
+model_interaction_ivw <- lm(
+  Wert_depression ~ Wert_socialsupport * factor(Geschlecht_ID) +
+    Wert_socialsupport * factor(Alter_ID),
+  weights = weight_ivw,
+  data = rki_data_1 %>%
+    filter(Region_ID == 0 &
+      Geschlecht_ID != 0 &
+      Alter_ID != "00+")
+)
 summary(model_interaction_ivw)
 # Also here, same results as unweighted, but more pronounced.
 
