@@ -183,7 +183,11 @@ Unsicherheit is fairly small for most rows but should be checked for relevant in
 
 Plots:
 
-This image shows that the premise of the second research question holds true: depressive symptoms do differ among different education levels in Germany
+This is a simplifies trend of the development of depressive symptoms over time in Germany. For simplification purposes only the observations of all genders and ages were used!
+
+![](proposal_graphic2.png){width="505"}
+
+This image implicates that the premise of the second research question might hold true: Depressive symptoms could differ among different education levels in Germany, but the observations were selected for simplification purposes! (as above)
 
 ![](proposal_graphic1.png){width="510"}
 

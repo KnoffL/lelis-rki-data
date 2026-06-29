@@ -143,3 +143,30 @@ ggplot(data = bild_dep_23,
     x = ("Casmin education level"),
     y = ("prevalence of depressive symptoms")
   )
+
+#second graphic for proposal: depression over time
+#only the observations regarding all genders and ages, for simplification purposes
+
+dep_time <- rki_data %>%
+  filter(Geschlecht_Name == "Gesamt") %>%
+  filter(Alter_Name == "Alle Altersgruppen") %>%
+  filter(Standardisierung_Name == "beobachtet") %>%
+  filter(Indikator_ID == 2040202) %>%
+  select(Zeitraum_Name, Wert) %>%
+  mutate(Zeitraum_Name = as.integer(Zeitraum_Name))
+
+ggplot(data = dep_time,
+       mapping = aes(
+         x = Zeitraum_Name,
+         y = Wert
+       )) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Development of depressive symptoms over time in Germany",
+       x = "years",
+       y = "depressive symptoms")
+
+
+
+
+
