@@ -10,14 +10,16 @@ This data is sourced from the the health report of the Robert-Koch-Institut (<ht
 
 What is in it?
 
-The data set contains health data on non-infectious diseases in the german population. It has 29 columns and 53,036 rows. Each row constitutes an observation of the monthly prevalence of a specific health behavior or illness (physical or mental) in a sample. The variable "Indikator_ID" gives a identifying number to each indicator (ergo the illness or behavior). The variable "Indikator_Name" is the name of the indicator. A detailled description can be found in the ReadMe under indicator on the website (see link above). The variable "Wert" contains the prevalence of the indicator in percent. The simple size is in the variable "Stichprobe", the region is under "Region_Name" and
+The data set contains health data on non-infectious diseases in the german population. It has 29 columns and 53,036 rows. Each row constitutes an observation of the monthly prevalence of a specific health behavior or illness (physical or mental) in a sample. The variable "Indikator_ID" gives a identifying number to each indicator (ergo the illness or behavior). The variable "Indikator_Name" is the name of the indicator. A detailed description can be found in the ReadMe under indicator on the website (see link above). The variable "Wert" contains the prevalence of the indicator in percent. The simple size is in the variable "Stichprobe", the region is under "Region_Name" and
 
 Research questions
 
-1.  question proposal: How did depressive symptoms develop over time and do depressive symptoms correlate with social support (Indikator_ID = `1010301`) in different regions of Germany?
+1.  question proposal: How did depressive symptoms (Indikator_ID = `2040202`) develop over time and do depressive symptoms correlate with social support (Indikator_ID = `1010301`) in different regions of Germany?
 2.  question proposal: What are differences in depressive symptoms between people of different educational levels (Bildung_Casmin_Name)? And did depressive symptoms of the most educated group decrease?
 
 Context and target audience:
+
+Mental health problems represent a struggle for affected individuals, their significant others and society. The recent crisis like the pandemic have exacerbated the problem significantly. This data analysis can be the groundwork for public policy and designers of the health problem in Germany. We want to show how depressive symptoms have developed over time and how two prominently assumed resilience factors stand in relation to this development. Building on the results on the analysis one could initiate targeted prevention programs and estimate the effectiveness of social-support-based interventions. The examination of the effect of education
 
 **Initial data analysis:**
 
@@ -60,6 +62,22 @@ $ Datenstand                    <date> 2024-11-20, 2024-11-20, 2024-11-20, 2024-
 Summary of key variables
 
 Since the data includes a lot of different indicators which are not seperated into columns but spread over different rows, one can only really calculate the amount of data points at this point (basically, all unique entries of Indikator_Name could be an own column). Calculating means or standard deviations across the indicators does not provide real meaning here. The data is not transformed to make unique entries of Indikator_Name into columns as we are only choosing a small subset of values of Indikator_Name and matching rows would be hard (for example because of differing age categories across indicators). It would also inflate the number of columns.
+
+Bildung_Casmin_Name (education level):
+
+-46% of entries are missing
+
+-the variable has four categories: Gesamt (all education types included), hoch (high education), mittel (medium education) and niedrig (low education)
+
+```         
+  Bildung_Casmin_Name     n
+  <chr>               <int>
+1 Gesamt              25370
+2 hoch                 1110
+3 mittel               1110
+4 niedrig              1110
+5 NA                  24336
+```
 
 Missing values:
 
@@ -163,6 +181,16 @@ df %>%
 
 Unsicherheit is fairly small for most rows but should be checked for relevant indicators regardless.
 
+Plots:
+
+This is a simplifies trend of the development of depressive symptoms over time in Germany. For simplification purposes only the observations of all genders and ages were used!
+
+![](proposal_graphic2.png){width="505"}
+
+This image implicates that the premise of the second research question might hold true: Depressive symptoms could differ among different education levels in Germany, but the observations were selected for simplification purposes! (as above)
+
+![](proposal_graphic1.png){width="510"}
+
 Quality issues:
 
 -one variable has the wrong data type (Zeitraum_Name) RESOLVED: By creating Start_Beobachtungszeitraum and Ende_Beobachtungszeitraum from Zeitraum_ISO we got the information we need and it is often times more precise than in Zeitraum_Name. Converting Zeitraum_Name to date would result in some form of data loss as it is in varying formats (e.g. 2024/25, 2009).
@@ -175,7 +203,7 @@ unique(df$Zeitraum_Name)
 
 -there is no variable uniquely identifing each row/observation ADDRESSED in rki_Skript
 
--some variables have more missing values then existing values (e.g. Fälle, Unteres_Konfidenzintervall)
+-some variables have more missing values then existing values (e.g. Fälle, Unteres_Konfidenzintervall) –\> Solution: We will our analysis on measures that can be calculated with what is given, whilst reflecting whether the selection of sepcific observations might result in a bias
 
 -because of the use of indicators system the variable "Indikator_ID" basically contains different attributes/variables; that is unhandy to work with
 
@@ -183,9 +211,11 @@ unique(df$Zeitraum_Name)
 
 -Bildung_Casmin_Name is not available across all indicators so we might not be able to use that as a control variable depending on the analysis.
 
--Sample size is really small for some indicators. We will have to keep in mind to check the sample size for relevant indicators and calculate power.
+-Sample size is really small for some indicators. We will have to keep in mind to check the sample size for relevant indicators and calculate power
 
-Solution:
+-the variable Zeitraum_Name appears to contain some observations with two years (e.g. 2024/25) —\> it appears that no observation relevant to our analysis contains this, so we will leave the variable as is
+
+Solution: (adressed in the individual bullet points)
 
 Analysis plan:
 
@@ -257,11 +287,44 @@ Uncertainties:
 
 Variables:
 
+- Indikator_ID (ID = `2040202`)
+
+- Casmin_Bildung_Name (education level: high, medium, low or general population)
+
+- Wert (the value of depressive symptoms measured in a population chunk)
+
+- Zeitraum_Name (the year)
+
+- Stichprobe (the sample size of each observation)
+
 Analytical approach:
+
+- calculate point estimators for the prevalence of depressive symptoms of each education level group for each year (so that we can confidently use an unpaired-test)
+
+- calculate confidence intervalls for each point and see whether they overlap
+
+- Calculate point guessers for depressive symptoms of the general population for each year, Calculate the differences between the high education group and general education group for each year–\> did the difference decline over the years?
+
+- Maybe calculate the correlation between a socio-economic indicator and depressive symptoms: if the effect is smaller than the one for education then we can estimate a minimum of the education-depression-correlation that can not be explained by socio-economic factors
 
 Cleaning / transformation steps needed:
 
+- isolate the observations where the variable "Bildung_Casmin_Name" is either high ("hoch"), medium ("mittel") or low ("niedrig") and where depressive symptoms are given
+
+- rename Indikator_ID to "depressive symptoms"
+
+- remove the observations that are not age-standardized
+
+- calculate weighted average for values of each year and education level
+
+- isolate the observations where the variable "Bildung_Casmin_Name" is either general ("Gesamt") and where depressive symptoms are given
+
 Uncertainties:
+
+- relevant observations are only present for the years 2014, 2019, 2022 and 2023; thus fluctuations over few years might distort the picture
+- We only have group statistics and not individual statistics, so we can not make t-tests as they are based on the knowledge of the distribution of values, but we can still calculate confidence intervalls
+- there are no relevant indicators or demgraphic measures which were measured at the same time, so we can not control for a variable like socio-economic stability. That means that an important possible confounder can not be properly accounted for
+- we assume that the observations are independent of each other. But maybe people get to this study because family members reccommend it (for example), so some data points might be not independent which would affect the analysis
 
 Workflow organization:
 
@@ -269,6 +332,18 @@ Code style: tidyverse, enforced with styler linter (not included in the project 
 
 Packages: number of packages should be kept at a minimum to avoid conflicts between packages but every collaborator can use new packages at their own may.
 
-Planned packages: Git workflow: people should work on individual branches, named after the author, to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator or when meeting up in one place; continue the common practice to let the partner confirm the pull request
+If we have to write a relevant amount of functions for our analysis we might sum them up in a package and add instructing comments via roxygen2.
 
-Gitignore: Artefacts from running code will be added to a gitignore file, though it is unclear at this stage what exactly we will include as we do not know the entire requirements of our project just yet
+Planned packages:
+
+Git workflow: People should work on individual branches, named after the author, to reduce conflicts wherever it is practical. Exceptions can be made after getting permission from the branch creator or when meeting up in one place; continue the common practice to let the partner confirm the pull request. Once the pull request is accepted the branch should be deleted.
+
+We will generally not work on main. Exception: if we work together in the moment or ask the partner for approval.
+
+If a mistake is noticed the partner is informed and the change can be inspected by using the log function and reversed with git restore. If a correction needs to be made, while the current work is unfinished, one might use git stash to save the progress (and recall with git stash pop).
+
+If a merge conflict occurs on a relevant part (e.g. something important for the analysis, not just wordings), the partner is consulted and the better version shall be discussed together. If the partner is unavailable at the time, one should resolve the conflict and add the alternate version, so that the decision can be done later on.
+
+if we notice, that we have to repeat a code snippet a lot we can think of a sensible function to accelerate the analysis. If the use of a function is unclear or prone to mistakes, we will validate the function input (e.g. if/ stop() ).
+
+Gitignore: Artefacts from running code will be added to a gitignore file, though it is unclear at this stage what exactly we will include as we do not know the entire requirements of our project just yet.
