@@ -86,6 +86,7 @@ rki_data_1 <- rki_data %>%
   filter(Bildung_Casmin_ID == 0) # Get data across education levels
 
 View(rki_data_1)
+# For depression, there is only region specific data for 2014 and 2019
 
 # Transform data so that there is only one row per subgroup
 depression_data <- rki_data_1 %>%
@@ -220,3 +221,49 @@ ggplot(rki_data_1_age_sample_size, aes(x = Stichprobe_socialsupport)) +
   )
 
 # Sample sizes vary a lot for all inspected combinations, that is important to keep in mind
+
+# Correlation between age-adjusted depression and social support over time
+rki_data_1_corr <- rki_data_1 %>%
+  filter(Geschlecht_ID == 0 & Alter_ID == '00+' & Region_ID == 0)
+
+cor.test(rki_data_1_corr$Wert_depression, rki_data_1_corr$Wert_socialsupport)
+# The correlation is 0.36 but confidence intervals are insanely wide - that is because we only use
+# aggregated data from four time points here. It can therefore only be used as a starting point for
+# analyses on individual data but on our aggregated level here, it is rather meaningless
+
+# Correlation on a regional level (only for 2014 and 2019 as there is no regional data after)
+rki_data_1_corr_regional <- rki_data_1 %>%
+  filter(Geschlecht_ID == 0 & Alter_ID == '00+' & Region_ID != 0)
+
+cor.test(rki_data_1_corr_regional$Wert_depression, rki_data_1_corr_regional$Wert_socialsupport)
+
+# Correlation on a gender x age level
+rki_data_1_corr_gender_age <- rki_data_1 %>%
+  filter(Geschlecht_ID != 0 & Alter_ID != '00+' & Region_ID == 0)
+
+cor.test(rki_data_1_corr_gender_age$Wert_depression, rki_data_1_corr_gender_age$Wert_socialsupport)
+
+# Correlation on a gender level
+rki_data_1_corr_gender <- rki_data_1 %>%
+  filter(Geschlecht_ID != 0 & Alter_ID == '00+' & Region_ID == 0)
+
+cor.test(rki_data_1_corr_gender$Wert_depression, rki_data_1_corr_gender$Wert_socialsupport)
+
+# Correlation on a age level
+rki_data_1_corr_age <- rki_data_1 %>%
+  filter(Geschlecht_ID == 0 & Alter_ID != '00+' & Region_ID == 0)
+
+cor.test(rki_data_1_corr_age$Wert_depression, rki_data_1_corr_age$Wert_socialsupport)
+
+# Correlation on a regional level seperate by time points (only for 2014 and 2019 as there is no regional data after)
+rki_data_1_corr_regional %>%
+  group_by(Zeitraum_Name) %>%
+  summarise(
+    cor = cor(Wert_depression, Wert_socialsupport, use = "complete.obs"), # one region is missing for 2019
+    p_value = cor.test(Wert_depression, Wert_socialsupport)$p.value,
+    n = sum(!is.na(Wert_depression) & !is.na(Wert_socialsupport))
+  )
+
+# Only the regional analysis is significant. There, higher levels of depression are associated with lower social support.
+# Apart from that, the descriptive analysis is mixed. Population-wide aggregated data is very much sub-optimal for the question
+# we are trying to answer
