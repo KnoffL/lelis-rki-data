@@ -319,3 +319,72 @@ summary(model_interaction)
 # While still significant, the model explains less variance than without the interaction terms.
 # Here, no effect is significant and social support is non-significantly
 # positively correlated with depression
+
+# Invariance weighted analyses: particularly important as our sample size varies a lot.
+# Since we have not learned how to do that yet, this is mostly AI generated code.
+# I still looked and interpreted the results though.
+rki_data_1 <- rki_data_1 %>%
+  mutate(
+    ci_width_depression = Oberes_Konfidenzintervall_depression - Unteres_Konfidenzintervall_depression,
+    ci_width_socialsupport = Oberes_Konfidenzintervall_socialsupport - Unteres_Konfidenzintervall_socialsupport,
+    weight_ivw = 1 / (pmax(ci_width_depression, ci_width_socialsupport)^2)
+  )
+
+# Model 1: Regional, IVW
+model_regional_ivw <- lm(Wert_depression ~ Wert_socialsupport + factor(Region_ID),
+                         weights = weight_ivw,
+                         data = rki_data_1 %>%
+                           filter(Alter_ID == "00+" & Region_ID != 0 & Geschlecht_ID == 0))
+summary(model_regional_ivw)
+# The relationship between social support and depression is still negative now.
+# The model is now explaining 34% of variance, compared to none in the unweighted
+# linear regression.
+
+# Model 2: Age and gender, IVW
+model_age_gender_ivw <- lm(Wert_depression ~ Wert_socialsupport +
+                             factor(Geschlecht_ID) +
+                             factor(Alter_ID),
+                           weights = weight_ivw,
+                           data = rki_data_1 %>%
+                             filter(Region_ID == 0 &
+                                      Geschlecht_ID != 0 &
+                                      Alter_ID != "00+"))
+summary(model_age_gender_ivw)
+# Just as in the unweighted linear regression, the only significant relationship is with
+# Age between 65-79 and the model is significant. It explains more variance than before (44 %).
+
+# Model 2 without social support, IVW
+model_age_gender_without_sosu_ivw <- lm(Wert_depression ~ factor(Geschlecht_ID) +
+                                          factor(Alter_ID),
+                                        weights = weight_ivw,
+                                        data = rki_data_1 %>%
+                                          filter(Region_ID == 0 &
+                                                   Geschlecht_ID != 0 &
+                                                   Alter_ID != "00+"))
+summary(model_age_gender_without_sosu_ivw)
+# Also here, same results as unweighted, but more pronounced.
+
+# Model 3: Interaction, IVW
+model_interaction_ivw <- lm(Wert_depression ~ Wert_socialsupport * factor(Geschlecht_ID) +
+                              Wert_socialsupport * factor(Alter_ID),
+                            weights = weight_ivw,
+                            data = rki_data_1 %>%
+                              filter(Region_ID == 0 &
+                                       Geschlecht_ID != 0 &
+                                       Alter_ID != "00+"))
+summary(model_interaction_ivw)
+# Also here, same results as unweighted, but more pronounced.
+
+# In conclusion, there is some support that social support is associated with
+# lower levels of depression when using region as a second predictor, particularly
+# in the weighted model. When accounting for other factors like gender or age,
+# however, there is no additional explained variance with social support and descriptively,
+# social support is even associated with higher depression for some analyses.
+# Additionally, it seems likely that higher age and male gender are associated with
+# lower rates of depression. Especially the gender effect is rather well established in
+# psychological research.
+# Major limitations to these analyses are
+# 1) it is population-wide aggregated data, with very low resolution. Individual-level
+# data is needed to properly explore the effects we were looking for.
+# 2) there is no region x age x gender data, which would help to find explanations for
+# the difference in results for region vs age and gender.
