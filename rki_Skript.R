@@ -224,7 +224,7 @@ ggplot(rki_data_1_age_sample_size, aes(x = Stichprobe_socialsupport)) +
 
 # Correlation between age-adjusted depression and social support over time
 rki_data_1_corr <- rki_data_1 %>%
-  filter(Geschlecht_ID == 0 & Alter_ID == '00+' & Region_ID == 0)
+  filter(Geschlecht_ID == 0 & Alter_ID == "00+" & Region_ID == 0)
 
 cor.test(rki_data_1_corr$Wert_depression, rki_data_1_corr$Wert_socialsupport)
 # The correlation is 0.36 but confidence intervals are insanely wide - that is because we only use
@@ -233,29 +233,29 @@ cor.test(rki_data_1_corr$Wert_depression, rki_data_1_corr$Wert_socialsupport)
 
 # Correlation on a regional level (only for 2014 and 2019 as there is no regional data after)
 rki_data_1_corr_regional <- rki_data_1 %>%
-  filter(Geschlecht_ID == 0 & Alter_ID == '00+' & Region_ID != 0)
+  filter(Geschlecht_ID == 0 & Alter_ID == "00+" & Region_ID != 0)
 
 cor.test(rki_data_1_corr_regional$Wert_depression, rki_data_1_corr_regional$Wert_socialsupport)
 
 # Correlation on a gender x age level
 rki_data_1_corr_gender_age <- rki_data_1 %>%
-  filter(Geschlecht_ID != 0 & Alter_ID != '00+' & Region_ID == 0)
+  filter(Geschlecht_ID != 0 & Alter_ID != "00+" & Region_ID == 0)
 
 cor.test(rki_data_1_corr_gender_age$Wert_depression, rki_data_1_corr_gender_age$Wert_socialsupport)
 
 # Correlation on a gender level
 rki_data_1_corr_gender <- rki_data_1 %>%
-  filter(Geschlecht_ID != 0 & Alter_ID == '00+' & Region_ID == 0)
+  filter(Geschlecht_ID != 0 & Alter_ID == "00+" & Region_ID == 0)
 
 cor.test(rki_data_1_corr_gender$Wert_depression, rki_data_1_corr_gender$Wert_socialsupport)
 
 # Correlation on a age level
 rki_data_1_corr_age <- rki_data_1 %>%
-  filter(Geschlecht_ID == 0 & Alter_ID != '00+' & Region_ID == 0)
+  filter(Geschlecht_ID == 0 & Alter_ID != "00+" & Region_ID == 0)
 
 cor.test(rki_data_1_corr_age$Wert_depression, rki_data_1_corr_age$Wert_socialsupport)
 
-# Correlation on a regional level seperate by time points (only for 2014 and 2019 as there is no regional data after)
+# Correlation on a regional level separate by time points (only for 2014 and 2019 as there is no regional data after)
 rki_data_1_corr_regional %>%
   group_by(Zeitraum_Name) %>%
   summarise(
