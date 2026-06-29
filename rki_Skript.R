@@ -95,8 +95,11 @@ socialsupport_data <- rki_data_1 %>%
   filter(Indikator_ID == 1010301)
 
 rki_data_1 <- depression_data %>%
-  inner_join(socialsupport_data, by = c("Zeitraum_Name", "Geschlecht_ID", "Alter_ID", "Region_Name"), suffix = c("_depression", "_socialsupport"))
+  inner_join(socialsupport_data, by = c("Zeitraum_Name", "Geschlecht_ID", "Alter_ID", "Region_ID"), suffix = c("_depression", "_socialsupport"))
 View(rki_data_1)
+
+rki_data_1 <- rki_data_1 %>%
+  mutate(subgroup_name = paste(Geschlecht_Name_depression, Alter_Name_depression, Region_Name), .keep = "unused")
 
 # Check if Unsicherheit is ever not zero
 rki_data_1_Unsicherheit_low <- rki_data_1 %>%
