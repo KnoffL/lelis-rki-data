@@ -293,7 +293,7 @@ plot_sample_sizes <- function(df, sample_description, indicator){
 
 plot_sample_sizes_gender <- function(df, sample_description, indicator){
   ggplot(df, aes(x = eval(sym(indicator)), fill = factor(Geschlecht_ID))) +
-  geom_histogram(bins = 30, position = "dodge") +
+  geom_histogram(bins = 30, position = "dodge") + # Dodge here creates two seperate bars for the genders instead of one color coded one
   scale_fill_manual(
     values = c("1" = "purple", "2" = "yellow"),
     labels = c("1" = "Women", "2" = "Men")
