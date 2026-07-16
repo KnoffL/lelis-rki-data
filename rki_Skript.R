@@ -89,14 +89,14 @@ rki_data <- rki_data %>%
   mutate(ID = row_number())
 
 #distribution of variable Bildung_Casmin_Name
-rki_data %>% 
+rki_data %>%
   group_by(Bildung_Casmin_Name) %>%
   summarise(
     n = n()
   )
 
-#isolate and examine observations 
-#where distinct education level and depressive symptoms are given 
+#isolate and examine observations
+#where distinct education level and depressive symptoms are given
 #and age-standardized
 bildung_symptom <- rki_data %>%
   filter(Indikator_ID == 2040202) %>%
@@ -106,8 +106,8 @@ bildung_symptom <- rki_data %>%
 
 #function to calculate weighted average
 #'@description value should contain the values to be summed up, sample_size
-#'indicates the weight of the value with the same position, the weight is 
-#'#'calculated by deviding the individual sample_size value with the summ of 
+#'indicates the weight of the value with the same position, the weight is
+#'#'calculated by deviding the individual sample_size value with the summ of
 #'sample_size
 #'@param name value a numeric vector
 #'@param name sample_size a numeric vector
@@ -124,7 +124,7 @@ weighted_average <- function(value, sample_size){
 }
 #function was corrected, tested on examplary vectors and stress tested
 
-#graphic for proposal: visualization of depressive symptoms among different 
+#graphic for proposal: visualization of depressive symptoms among different
 #educations levels for all genders in 2023
 bild_dep_23 <- bildung_symptom %>%
   filter(Zeitraum_Name == "2023") %>%
@@ -168,7 +168,7 @@ ggplot(data = dep_time,
 
 #leo analysis: second research question
 
-#point estimators: aggregated values of depressive symptoms for each year and 
+#point estimators: aggregated values of depressive symptoms for each year and
 #education level with the aggregated sample sizes
 bildung_symptom %>%
   group_by(Zeitraum_Name, Bildung_Casmin_Name) %>%
@@ -218,7 +218,7 @@ conf_up <- function(value, variance, n){
 #functions appear to work (yay!)
 
 # we will add the confidence intervals to our aggregated tibble
-aggreg <- aggreg %>% 
+aggreg <- aggreg %>%
   mutate(low_confint = conf_low(Wert, variance, sample_size)) %>%
   mutate(up_confint = conf_up(Wert, variance, sample_size))
 
@@ -241,7 +241,7 @@ aggreg2 <- bildung2 %>%
   group_by(Zeitraum_Name, Bildung_Casmin_Name) %>%
   summarize(Wert = weighted_average(Wert, Stichprobe))
 
-# I can already see that the difference doesn't become smaller; I will plot 
+# I can already see that the difference doesn't become smaller; I will plot
 #a graph
 
 # Get and view relevant rows for first research question
@@ -319,7 +319,7 @@ ggplot(rki_data_1_gender_age_sample_size, aes(x = Stichprobe_depression, fill = 
     labels = c("1" = "Women", "2" = "Men")
   ) +
   labs(
-    title = "Distribution of Sample Sizes for Depression in Gender Samples",
+    title = "Distribution of Sample Sizes for Depression in Gender x Age Samples",
     x = "Sample Size",
     y = "Count",
     fill = "Gender"
@@ -369,7 +369,7 @@ ggplot(rki_data_1_gender_age_sample_size, aes(x = Stichprobe_socialsupport, fill
     labels = c("1" = "Women", "2" = "Men")
   ) +
   labs(
-    title = "Distribution of Sample Sizes for Social Support in Gender Samples",
+    title = "Distribution of Sample Sizes for Social Support in Gender x Age Samples",
     x = "Sample Size",
     y = "Count",
     fill = "Gender"
