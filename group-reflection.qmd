@@ -1,26 +1,124 @@
 ---
-title: "group-reflection"
-format: html
-editor: visual
+title: "Group Reflection"
 ---
 
-## Quarto
+## Skills inventory
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+For each skill area, describe what your group actually used it for.
+If you did not use a skill, say so and note why.
 
-## Running Code
+### Functions & refactoring (W2)
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+*What we did:*
 
-```{r}
-1 + 1
-```
+*What worked well:*
 
-You can add options to executable code like this
+*What was hard:*
 
-```{r}
-#| echo: false
-2 * 2
-```
+### Debugging (W3)
 
-The `echo: false` option disables the printing of code (only output is displayed).
+*What we did:*
+
+*What worked well:*
+
+*What was hard:*
+
+### Version control & remotes (W4)
+
+*What we did:*
+
+*What worked well:*
+
+*What was hard:*
+
+### Quarto websites & collaborative coding (W5)
+
+*What we did:*
+
+*What worked well:*
+
+*What was hard:*
+
+### R packages (W6)
+
+*What we did:*
+
+*What worked well:*
+
+*What was hard:*
+
+### Initial data analysis & data cleaning (W7)
+
+*What we did:*
+
+*What worked well:*
+
+*What was hard:*
+
+### Reproducibility, open data & renv (W9)
+
+*What we did:*
+
+*What worked well:*
+
+*What was hard:*
+
+### Analysis & inference strategies (W10)
+
+*What we did:*
+
+*What worked well:*
+
+*What was hard:*
+
+### Communication & visualisation (W11)
+
+*What we did:*
+
+*What worked well:*
+
+*What was hard:*
+
+## Key analytical decisions
+
+Describe 2–3 decisions that had a meaningful effect on your results or workflow.
+
+### Decision 1: [short title]
+
+*What were we deciding between?*
+
+*How did we reason through it?*
+
+*In hindsight, would we decide differently?*
+
+### Decision 2: [short title]
+
+*What were we deciding between?*
+
+*How did we reason through it?*
+
+*In hindsight, would we decide differently?*
+
+## Workflow & collaboration
+
+*How did we divide work across group members?*
+
+*What branching or Git workflow did we actually use — and did it match the proposal?*
+
+*What would we change about how we coordinated?*
+
+## LLM usage
+
+Describe up to 5 significant uses of an LLM tool during the project.
+
+### Usage 1: [task]
+
+- **Tool / model:**
+- **What it produced:**
+- **What we had to correct or verify:**
+
+### Usage 2: [task]
+
+- **Tool / model:**
+- **What it produced:**
+- **What we had to correct or verify:**
