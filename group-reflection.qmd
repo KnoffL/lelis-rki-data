@@ -85,9 +85,10 @@ results
 
 ### Communication & visualisation (W11)
 
-*What we did:*
+*What we did:* Visualizing sample sizes
 
-*What worked well:*
+*What worked well:* Asking AI for help on visualizations, including explanations
+for what the parameters are doing
 
 *What was hard:*
 
