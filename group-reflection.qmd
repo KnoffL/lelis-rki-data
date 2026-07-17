@@ -67,25 +67,29 @@ as it is very comprehensive but not structured to capture that at a quick glance
 
 ### Reproducibility, open data & renv (W9)
 
-*What we did:*
+*What we did:* sharing our data and linking the source, documenting code
 
-*What worked well:*
+*What worked well:* doing all analyses in the scripts for reproducibility (not)
+in consoles
 
 *What was hard:*
 
 ### Analysis & inference strategies (W10)
 
-*What we did:*
+*What we did:* Correlation and regression analyses for various groups and models
 
-*What worked well:*
+*What worked well:* using Claude for parts of the analysis (as explained in the
+code), comparing different models.
 
-*What was hard:*
+*What was hard:* Inferring which models worked best and why, interpreting the
+results
 
 ### Communication & visualisation (W11)
 
-*What we did:*
+*What we did:* Visualizing sample sizes
 
-*What worked well:*
+*What worked well:* Asking AI for help on visualizations, including explanations
+for what the parameters are doing
 
 *What was hard:*
 
@@ -115,7 +119,8 @@ Describe 2–3 decisions that had a meaningful effect on your results or workflo
 
 *What branching or Git workflow did we actually use — and did it match the proposal?*
 
-*What would we change about how we coordinated?*
+*What would we change about how we coordinated?* Maybe not completing everything
+on the day of the deadline (typing this on the day of the deadline)
 
 ## LLM usage
 
