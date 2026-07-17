@@ -9,51 +9,61 @@ If you did not use a skill, say so and note why.
 
 ### Functions & refactoring (W2)
 
-*What we did:*
+*What we did:* function for plotting sample size distributions
 
-*What worked well:*
+*What worked well:* using the function in the code once it was written
 
-*What was hard:*
+*What was hard:* had to do some research on stack overflow on how to pass the 
+name of a variable to a function (eval(sym()))
 
 ### Debugging (W3)
 
-*What we did:*
+*What we did:* Look at error messages and - if code ran without errors - look
+at outputs to check plausability
 
-*What worked well:*
+*What worked well:* First thinking about it myself, then using google and - if 
+nothing else worked - ask AI
 
 *What was hard:*
 
 ### Version control & remotes (W4)
 
-*What we did:*
+*What we did:* worked on separate branches
 
-*What worked well:*
+*What worked well:* barely any merge conflicts and no nasty ones
 
-*What was hard:*
+*What was hard:* keeping commits small
 
 ### Quarto websites & collaborative coding (W5)
 
-*What we did:*
+*What we did:* peer-reviews, assisting each other where necessary, merging each
+others branches
 
-*What worked well:*
+*What worked well:* distributing tasks about equally - I feel like we both 
+contributed about the same
 
-*What was hard:*
+*What was hard:* time management - we both did our task *very* close to respective
+deadlines.
 
 ### R packages (W6)
 
-*What we did:*
+*What we did:* use imports as to not code pre-existing functionality
 
-*What worked well:*
+*What worked well:* rather clean code
 
-*What was hard:*
+*What was hard:* we had no formal package management but since we did not use
+that many packages I feel like that is okay, also most packages were standard so 
+when people pull our project most users should not experience too many problems
 
 ### Initial data analysis & data cleaning (W7)
 
-*What we did:*
+*What we did:* looking at missing values, creating a new column for the date
 
-*What worked well:*
+*What worked well:* looking at the documentation and inferring why values might be
+missing
 
-*What was hard:*
+*What was hard:* getting a total overview over all indicators the data includes
+as it is very comprehensive but not structured to capture that at a quick glance
 
 ### Reproducibility, open data & renv (W9)
 
