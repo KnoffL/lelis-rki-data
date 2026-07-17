@@ -67,9 +67,10 @@ as it is very comprehensive but not structured to capture that at a quick glance
 
 ### Reproducibility, open data & renv (W9)
 
-*What we did:*
+*What we did:* sharing our data and linking the source, documenting code
 
-*What worked well:*
+*What worked well:* doing all analyses in the scripts for reproducibility (not)
+in consoles
 
 *What was hard:*
 
