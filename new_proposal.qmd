@@ -10,7 +10,7 @@ This data is sourced from the the health report of the Robert-Koch-Institut (<ht
 
 What is in it?
 
-The data set contains health data on non-infectious diseases in the german population. It has 29 columns and 53,036 rows. Each row constitutes an observation of the monthly prevalence of a specific health behavior or illness (physical or mental) in a sample. The variable "Indikator_ID" gives a identifying number to each indicator (ergo the illness or behavior). The variable "Indikator_Name" is the name of the indicator. A detailed description can be found in the ReadMe under indicator on the website (see link above). The variable "Wert" contains the prevalence of the indicator in percent. The simple size is in the variable "Stichprobe", the region is under "Region_Name" and
+The data set contains health data on non-infectious diseases in the german population. It has 29 columns and 53,036 rows. Each row constitutes an observation of the monthly prevalence of a specific health behavior or illness (physical or mental) in a sample. The variable "Indikator_ID" gives a identifying number to each indicator (ergo the illness or behavior). The variable "Indikator_Name" is the name of the indicator. A detailed description can be found in the ReadMe under indicator on the website (see link above). The variable "Wert" contains the prevalence of the indicator in percent. The simple size is in the variable "Stichprobe", the region is under "Region_Name" and "Bildung_Casmin_Name" describes what level of education the people included in this data have.
 
 Research questions
 
