@@ -119,7 +119,8 @@ Describe 2–3 decisions that had a meaningful effect on your results or workflo
 
 *What branching or Git workflow did we actually use — and did it match the proposal?*
 
-*What would we change about how we coordinated?*
+*What would we change about how we coordinated?* Maybe not completing everything
+on the day of the deadline (typing this on the day of the deadline)
 
 ## LLM usage
 
