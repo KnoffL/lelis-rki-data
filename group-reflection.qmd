@@ -75,11 +75,13 @@ as it is very comprehensive but not structured to capture that at a quick glance
 
 ### Analysis & inference strategies (W10)
 
-*What we did:*
+*What we did:* Correlation and regression analyses for various groups and models
 
-*What worked well:*
+*What worked well:* using Claude for parts of the analysis (as explained in the
+code), comparing different models.
 
-*What was hard:*
+*What was hard:* Inferring which models worked best and why, interpreting the
+results
 
 ### Communication & visualisation (W11)
 
