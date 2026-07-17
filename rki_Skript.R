@@ -246,6 +246,33 @@ bildung2 <- rki_data %>%
   filter(Standardisierung_ID == 3) %>%
   filter(!is.na(Wert))
 
+# calculate the point estimators again
+aggreg2 <- bildung2 %>%
+  group_by(Zeitraum_Name, Bildung_Casmin_Name) %>%
+  summarize(Wert = weighted_average(Wert, Stichprobe))
+
+View(aggreg2)
+# I can already see that the difference doesn't become smaller
+# -->visualization
+
+ggplot(
+  data = aggreg2,
+  mapping = aes(
+    x = Zeitraum_Name,
+    y = Wert,
+    group = Bildung_Casmin_Name,
+    color = Bildung_Casmin_Name
+  )
+) +
+  geom_point() + 
+  geom_line() +
+  labs(
+    title = "depressive symptoms of the general ('Gesamt') and 
+    high ('hoch') education population over time in Germany",
+    x = "Years",
+    y = "depressive symptoms"
+  )
+
 #look for analysis potential to examine relation between depressive symptoms
 #and socio-economic factors (the Variable GISD_Name)
 rki_data %>% filters(Indikator_ID == 2040202) %>%
@@ -255,13 +282,6 @@ rki_data %>% filters(Indikator_ID == 2040202) %>%
 #socio-economic factors, as there is no observation containing both measures
 #(other measurement is always NA)
 
-# calculate the point estimators again
-aggreg2 <- bildung2 %>%
-  group_by(Zeitraum_Name, Bildung_Casmin_Name) %>%
-  summarize(Wert = weighted_average(Wert, Stichprobe))
-
-# I can already see that the difference doesn't become smaller; I will plot
-# a graph
 
 # Get and view relevant rows for first research question
 rki_data_1 <- rki_data %>%
