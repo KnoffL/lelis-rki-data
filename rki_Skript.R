@@ -246,6 +246,15 @@ bildung2 <- rki_data %>%
   filter(Standardisierung_ID == 3) %>%
   filter(!is.na(Wert))
 
+#look for analysis potential to examine relation between depressive symptoms
+#and socio-economic factors (the Variable GISD_Name)
+rki_data %>% filters(Indikator_ID == 2040202) %>%
+  group_by(GISD_Name) %>%
+  summarise(n = n())
+#One can not say anything abot the relation between depressive symptoms and 
+#socio-economic factors, as there is no observation containing both measures
+#(other measurement is always NA)
+
 # calculate the point estimators again
 aggreg2 <- bildung2 %>%
   group_by(Zeitraum_Name, Bildung_Casmin_Name) %>%
