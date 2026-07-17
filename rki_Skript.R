@@ -18,7 +18,7 @@ rki_data %>%
   filter(Indikator_ID == 2040202) %>%
   nrow()
 
-# number of missing values in Fälle
+# number of missing values in "Fälle"
 rki_data %>%
   filter(is.na(Fälle)) %>%
   nrow()
@@ -108,7 +108,7 @@ bildung_symptom <- rki_data %>%
 # function to calculate weighted average
 #' @description value should contain the values to be summed up, sample_size
 #' indicates the weight of the value with the same position, the weight is
-#' #'calculated by deviding the individual sample_size value with the summ of
+#' #'calculated by dividing the individual sample_size value with the summ of
 #' sample_size
 #' @param name value a numeric vector
 #' @param name sample_size a numeric vector
@@ -185,10 +185,10 @@ bildung_symptom %>%
   )
 
 # we already have confidence intervals so I will reverse the formula for
-# the confidence interval to caluclate the standard deviation
+# the confidence interval to calculate the standard deviation
 
-# calculate standard deviation from lower confidence intervall
-# for the confidence intervall we will assume a t-distribution and thus
+# calculate standard deviation from lower confidence interval
+# for the confidence interval we will assume a t-distribution and thus
 # use 1.96 as t for the reverse 0.95-confidence interval formula
 variance <- function(conf_low, mean_value, sample_size) {
   variance <- ((mean_value - conf_low) / 1.96)^2 * sample_size
