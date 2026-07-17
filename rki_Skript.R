@@ -463,7 +463,7 @@ summary(model_interaction)
 # Here, no effect is significant and social support is non-significantly
 # positively correlated with depression
 
-# Invariance weighted analyses: particularly important as our sample size varies a lot.
+# Inverse weighted analyses: particularly important as our sample size varies a lot.
 # Since we have not learned how to do that yet, this is mostly AI generated code.
 # I still looked and interpreted the results though.
 rki_data_1 <- rki_data_1 %>%
