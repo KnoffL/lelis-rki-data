@@ -10,8 +10,14 @@ If you did not use a skill, say so and note why.
 ### Functions & refactoring (W2)
 
 *What we did:* function for plotting sample size distributions
+               function for calculating weighted averages for aggregating data
+               function for calculating variance from confindence interval
+               functions for calculating lower/upper confidence interval limit
+               
 
 *What worked well:* using the function in the code once it was written
+                    validating function input
+                    
 
 *What was hard:* had to do some research on stack overflow on how to pass the 
 name of a variable to a function (eval(sym()))
@@ -21,18 +27,24 @@ name of a variable to a function (eval(sym()))
 *What we did:* Look at error messages and - if code ran without errors - look
 at outputs to check plausability
 
-*What worked well:* First thinking about it myself, then using google and - if 
+*What worked well:* 
+-First thinking about it myself, then using google and - if 
 nothing else worked - ask AI
+-sites like stack-flow and slides from the previous course were helpful
+-simplifying the code by dividing it and using test data to see where 
+the problem is 
 
 *What was hard:*
+using methods like backtrace to see where an error was
 
 ### Version control & remotes (W4)
 
 *What we did:* worked on separate branches
 
 *What worked well:* barely any merge conflicts and no nasty ones
+                    communicating when a merge conflict happened
 
-*What was hard:* keeping commits small
+*What was hard:* keeping commits small (for me too)
 
 ### Quarto websites & collaborative coding (W5)
 
