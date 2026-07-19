@@ -1,0 +1,18 @@
+---
+title: "README"
+output: html_document
+date: "2026-07-19"
+---
+
+[**Dataset:**]{.underline}
+
+The used dataset is sourced from the the health report of the Robert-Koch-Institut (<https://github.com/robert-koch-institut/Gesundheitsberichterstattung_-_Daten_zu_nichtuebertragbaren_Erkrankungen?tab=CC-BY-4.0-1-ov-file#readme>) and contains various health data of people in Germany over several decades.
+
+[**Research Questions:**]{.underline}
+
+1.  How did depressive symptoms develop over time and do depressive symptoms correlate with social support in different regions of Germany?
+2.  What are differences in depressive symptoms between people of different educational levels? And did depressive symptoms of the most educated group decrease?
+
+[**Authors:**]{.underline}
+
+Lisa Knoff and Leonardo Stefanidi
