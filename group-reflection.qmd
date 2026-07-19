@@ -1,81 +1,142 @@
 ---
 title: "Group Reflection"
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 ## Skills inventory
 
-For each skill area, describe what your group actually used it for.
-If you did not use a skill, say so and note why.
+For each skill area, describe what your group actually used it for. If
+you did not use a skill, say so and note why.
 
 ### Functions & refactoring (W2)
 
-*What we did:* function for plotting sample size distributions
-               function for calculating weighted averages for aggregating data
-               function for calculating variance from confindence interval
-               functions for calculating lower/upper confidence interval limit
-               
+*What we did:*
 
-*What worked well:* using the function in the code once it was written
-                    validating function input
-                    
+- function for plotting sample size distributions
 
-*What was hard:* had to do some research on stack overflow on how to pass the 
-name of a variable to a function (eval(sym()))
+- function for calculating weighted averages for aggregating data
+
+- function for calculating variance using a given confidence interval
+
+- functions for calculating lower/upper confidence interval limit
+
+*What worked well:*
+
+- using the function in the code once it was written validating function
+  input
+
+*What was hard:*
+
+- had to do some research on stack overflow on how to pass the name of a
+  variable to a function (eval(sym()))
 
 ### Debugging (W3)
 
-*What we did:* Look at error messages and - if code ran without errors - look
-at outputs to check plausability
+*What we did:*
 
-*What worked well:* 
--First thinking about it myself, then using google and - if 
-nothing else worked - ask AI
--sites like stack-flow and slides from the previous course were helpful
--simplifying the code by dividing it and using test data to see where 
-the problem is 
+- Look at error messages and - if code ran without errors - look at
+  outputs to check plausability
+
+*What worked well:*
+
+- First thinking about it myself, then using google and - if nothing
+  else worked - ask AI
+
+- benefiting from sites like stack-flow and slides from the previous
+  course
+
+- simplifying the code by dividing it and using test data to see where
+  the problem is
+
+- looking at the architecture of the functions and example uses in the
+  Help function in RStudio
 
 *What was hard:*
-using methods like backtrace to see where an error was
+
+- using methods like backtrace to see where an error was
 
 ### Version control & remotes (W4)
 
-*What we did:* worked on separate branches
+*What we did:*
 
-*What worked well:* barely any merge conflicts and no nasty ones
-                    communicating when a merge conflict happened
+- pulling at the start of each session
 
-*What was hard:* keeping commits small (for me too)
+*What worked well:*
+
+*What was hard:*
+
+- connecting local and remote (when an SSH-key is used for another git
+  repo it can not be saved in general settings again)
 
 ### Quarto websites & collaborative coding (W5)
 
-*What we did:* peer-reviews, assisting each other where necessary, merging each
-others branches
+*What we did:*
 
-*What worked well:* distributing tasks about equally - I feel like we both 
-contributed about the same
+- peer-reviews, assisting each other where necessary, merging each
+  others branches
 
-*What was hard:* time management - we both did our task *very* close to respective
-deadlines.
+- worked on separate branches named after each of us
+
+- didn't work on main directly
+
+*What worked well:*
+
+- distributing tasks about equally - I feel like we both contributed
+  about the same keeping an over
+
+- barely any merge conflicts and no nasty ones communicating when a
+  merge conflict happened
+
+- keeping an overview over the branches
+
+*What was hard:*
+
+- keeping commits small
+
+- time management - we both did our task *very* close to respective
+  deadlines.
 
 ### R packages (W6)
 
-*What we did:* use imports as to not code pre-existing functionality
+*What we did:*
 
-*What worked well:* rather clean code
+- use imports as to not code pre-existing functionality
 
-*What was hard:* we had no formal package management but since we did not use
-that many packages I feel like that is okay, also most packages were standard so 
-when people pull our project most users should not experience too many problems
+*What worked well:*
+
+- rather clean code
+
+*What was hard:*
+
+- we had no formal package management but since we did not use that many
+  packages I feel like that is okay, also most packages were standard so
+  when people pull our project most users should not experience too many
+  problems
 
 ### Initial data analysis & data cleaning (W7)
 
-*What we did:* looking at missing values, creating a new column for the date
+*What we did:*
 
-*What worked well:* looking at the documentation and inferring why values might be
-missing
+- looking at missing values
 
-*What was hard:* getting a total overview over all indicators the data includes
-as it is very comprehensive but not structured to capture that at a quick glance
+- creating a new column for the date
+
+*What worked well:*
+
+- looking at the documentation and inferring why values might be missing
+
+- filtering data irrelevant to our analysis
+
+*What was hard:*
+
+- getting a total overview over all indicators the data includes as it
+  is very comprehensive but not structured to capture that at a quick
+  glance
+
+- getting an overview over variables without making to many decisions
+  (filter out specific group? age-standardized or not?)
 
 ### Reproducibility, open data & renv (W9)
 
@@ -89,9 +150,27 @@ as it is very comprehensive but not structured to capture that at a quick glance
 
 *What we did:*
 
+- for research question 2: first I calculated the variance of each
+  observation from the given confidence intervals and then aggregated
+  the variances for each year and calculated a mean value and confidence
+  interval for each year, then I checked whether the confidence interval
+  overlapped as a conservative estimate
+
 *What worked well:*
 
 *What was hard:*
+
+- the data was only available for population chunks, never for
+  individuals; as the data contains sensitive observation the reason is
+  probably to ensure anonymity, but in consequence we couldn't apply the
+  usual statistical techniques which require information about the
+  distribution of values
+
+- for research question 2: I realized afterwards, that I simply
+  aggregated the variances from different sub-population group (e.g.
+  gender, age), to calculate an aggregated variance, but I didn't take
+  into account that the sub-populations differ from each other therefore
+  underestimating the variance
 
 ### Communication & visualisation (W11)
 
@@ -103,9 +182,10 @@ as it is very comprehensive but not structured to capture that at a quick glance
 
 ## Key analytical decisions
 
-Describe 2–3 decisions that had a meaningful effect on your results or workflow.
+Describe 2–3 decisions that had a meaningful effect on your results or
+workflow.
 
-### Decision 1: [short title]
+### Decision 1: \[short title\]
 
 *What were we deciding between?*
 
@@ -113,7 +193,7 @@ Describe 2–3 decisions that had a meaningful effect on your results or workflo
 
 *In hindsight, would we decide differently?*
 
-### Decision 2: [short title]
+### Decision 2: \[short title\]
 
 *What were we deciding between?*
 
@@ -125,7 +205,8 @@ Describe 2–3 decisions that had a meaningful effect on your results or workflo
 
 *How did we divide work across group members?*
 
-*What branching or Git workflow did we actually use — and did it match the proposal?*
+*What branching or Git workflow did we actually use — and did it match
+the proposal?*
 
 *What would we change about how we coordinated?*
 
@@ -133,13 +214,13 @@ Describe 2–3 decisions that had a meaningful effect on your results or workflo
 
 Describe up to 5 significant uses of an LLM tool during the project.
 
-### Usage 1: [task]
+### Usage 1: \[task\]
 
 - **Tool / model:**
 - **What it produced:**
 - **What we had to correct or verify:**
 
-### Usage 2: [task]
+### Usage 2: \[task\]
 
 - **Tool / model:**
 - **What it produced:**
