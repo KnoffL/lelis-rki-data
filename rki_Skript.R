@@ -282,7 +282,7 @@ rki_data %>% filters(Indikator_ID == 2040202) %>%
 #socio-economic factors, as there is no observation containing both measures
 #(other measurement is always NA)
 
-#end of Leo's analysis
+#end of Leo's analysis and research question 2
 #------------------------------------------------------------------------------
 
 # Get and view relevant rows for first research question
