@@ -5,6 +5,11 @@ library(tidyverse)
 library(visdat)
 library(tidyr)
 
+#run this if you haven't run renv yet:
+renv::restore()
+#run this if you added a new package
+renv::snapshot()
+
 rki_data <- read_tsv("GBE_Indikatoren_nichtuebertragbarer_Erkrankungen.tsv")
 View(rki_data)
 glimpse(rki_data)
