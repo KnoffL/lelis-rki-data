@@ -4,14 +4,13 @@ library(readr)
 library(tidyverse)
 library(visdat)
 library(tidyr)
+library(plotly)
 
 #run this if you haven't run renv yet:
 renv::restore()
 #run this if you added a new package
 renv::snapshot()
-
-#create package so I can test roxygen2:
-usethis::create_package("rki.health")
+renv::snapshot(prune = TRUE)
 
 rki_data <- read_tsv("GBE_Indikatoren_nichtuebertragbarer_Erkrankungen.tsv")
 View(rki_data)
@@ -272,8 +271,7 @@ graph_intervals <- ggplot(
     x = "Years",
     y = "Intensity of depressive symptoms"
   )
-libr
-
+ggplotly(graph_intervals)
 # second part of the research question: did the gap of depressive symptoms
 # between the high education group and the general education group decline?
 
@@ -318,12 +316,14 @@ ggplot(
 rki_data %>% filters(Indikator_ID == 2040202) %>%
   group_by(GISD_Name) %>%
   summarise(n = n())
-#One can not say anything abot the relation between depressive symptoms and 
+#One can not say anything about the relation between depressive symptoms and 
 #socio-economic factors, as there is no observation containing both measures
 #(other measurement is always NA)
 
 #end of Leo's analysis and research question 2
 #------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+
 
 # Get and view relevant rows for first research question
 rki_data_1 <- rki_data %>%
