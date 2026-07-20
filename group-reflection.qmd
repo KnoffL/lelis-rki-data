@@ -142,9 +142,24 @@ you did not use a skill, say so and note why.
 
 *What we did:*
 
+- write above every code chunk what we are intending to do and note
+  interim results
+
+- tried to ensure a bit computational reproducibility by putting all
+  essential analyses steps and packages into the script and testing
+
+- installed renv to ensure all the packagage versions are documented
+
 *What worked well:*
 
 *What was hard:*
+
+- maybe the reasons behind the analysis decisions aren't fully
+  transparent
+
+- we were in a rush when doing the main analysis part, so we didn't
+  create a reproducible record of decisions and deviations from the
+  original plan during the process
 
 ### Analysis & inference strategies (W10)
 
@@ -158,7 +173,7 @@ you did not use a skill, say so and note why.
 
 *What worked well:*
 
-- using functions and pipes to carry out ht ecalculations
+- using functions and pipes to carry out the calculations
 
 *What was hard:*
 
