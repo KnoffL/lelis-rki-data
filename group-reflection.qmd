@@ -97,13 +97,20 @@ for what the parameters are doing
 
 Describe 2–3 decisions that had a meaningful effect on your results or workflow.
 
-### Decision 1: [short title]
+### Decision 1: Picking a data set
 
-*What were we deciding between?*
+*What were we deciding between?* Between our former data set (palmer-penguins)
+and our current data set.
 
-*How did we reason through it?*
+*How did we reason through it?* As we did not really have any data cleaning to 
+do on the prior data set and the data set was listed explicitly as being too 
+clean for this course, we switched. The con was that we had already written up
+our project proposal and were a little frustrated as we felt like it had not 
+been communicated enough that we should not choose such a data set beforehand.
 
-*In hindsight, would we decide differently?*
+*In hindsight, would we decide differently?* Not really. Cleaning the data set
+was less work than we anticipated and honestly, I like the process of writing up
+some easier cleaning code.
 
 ### Decision 2: [short title]
 
@@ -115,9 +122,14 @@ Describe 2–3 decisions that had a meaningful effect on your results or workflo
 
 ## Workflow & collaboration
 
-*How did we divide work across group members?*
+*How did we divide work across group members?* In the beginning, we both did what
+we had time to do. For the analyses, we each did one research question.
 
 *What branching or Git workflow did we actually use — and did it match the proposal?*
+We both worked on seperate branches and that worked pretty consistently (Lisa just
+took care of some merge conflicts on Leo's branch). We commited to that in the 
+proposal as well. Also, we never merged our own work - so we sticked to our
+proposal there. We, however, did not always make very incremental commits.
 
 *What would we change about how we coordinated?* Maybe not completing everything
 on the day of the deadline (typing this on the day of the deadline)
@@ -126,11 +138,14 @@ on the day of the deadline (typing this on the day of the deadline)
 
 Describe up to 5 significant uses of an LLM tool during the project.
 
-### Usage 1: [task]
+### Usage 1: Inverse-Weighted Analyses
 
-- **Tool / model:**
-- **What it produced:**
-- **What we had to correct or verify:**
+- **Tool / model:** Claude
+- **What it produced:** I had prompted it to find a way to take into account the
+variance in sample sizes between groups / times of measurement. It then came up
+with Inverse Weighted Analyses and gave me the codes for that.
+- **What we had to correct or verify:** I added the interpretation of the
+analyses as comments in the script.
 
 ### Usage 2: [task]
 
