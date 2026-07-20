@@ -189,6 +189,12 @@ ggplot(
 
 # leo analysis: second research question
 
+bildung_symptom <- rki_data %>%
+  filter(Indikator_ID == 2040202) %>%
+  filter(!is.na(Bildung_Casmin_Name)) %>%
+  filter(Bildung_Casmin_Name != "Gesamt") %>%
+  filter(Standardisierung_ID == 3)
+
 # point estimators: aggregated values of depressive symptoms for each year and
 # education level with the aggregated sample sizes
 bildung_symptom %>%
@@ -246,7 +252,27 @@ aggreg <- aggreg %>%
   mutate(low_confint = conf_low(Wert, variance, sample_size)) %>%
   mutate(up_confint = conf_up(Wert, variance, sample_size))
 
-# we can see that the intervals never overlap except once!
+# we can see that the intervals never overlap except once! (by checking numbers)
+#visualize
+graph_intervals <- ggplot(
+  data = aggreg,
+  mapping = aes(
+    x = Zeitraum_Name,
+    y = Wert
+  )
+) +
+  geom_point() +
+  geom_errorbar(aes(
+      ymin = low_confint,
+      ymax = up_confint)
+  ) +
+  labs(
+    title = "95%-confidence interval for the depressive symptoms 
+    between different education levels in Germany",
+    x = "Years",
+    y = "Intensity of depressive symptoms"
+  )
+libr
 
 # second part of the research question: did the gap of depressive symptoms
 # between the high education group and the general education group decline?
