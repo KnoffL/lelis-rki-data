@@ -158,6 +158,8 @@ you did not use a skill, say so and note why.
 
 *What worked well:*
 
+- using functions and pipes to carry out ht ecalculations
+
 *What was hard:*
 
 - the data was only available for population chunks, never for
@@ -166,11 +168,16 @@ you did not use a skill, say so and note why.
   usual statistical techniques which require information about the
   distribution of values
 
-- for research question 2: I realized afterwards, that I simply
-  aggregated the variances from different sub-population group (e.g.
-  gender, age), to calculate an aggregated variance, but I didn't take
-  into account that the sub-populations differ from each other therefore
-  underestimating the variance
+- for research question 2:
+
+  - I realized afterwards, that I simply aggregated the variances from
+    different sub-population group (e.g. gender, age), to calculate an
+    aggregated variance, but I didn't take into account that the
+    sub-populations differ from each other therefore underestimating the
+    variance
+
+  - also I forgot the Bessel correction (the n-1 instead of just n) in
+    the variance formula
 
 ### Communication & visualisation (W11)
 
@@ -185,15 +192,31 @@ you did not use a skill, say so and note why.
 Describe 2–3 decisions that had a meaningful effect on your results or
 workflow.
 
-### Decision 1: \[short title\]
+### Decision 1: already using age-standardized values (for Leos analysis)
 
 *What were we deciding between?*
 
+The indicator values are always given in two variants. Values as
+observed ("beobachtet") or age-standardized values and we had to pick
+one.
+
 *How did we reason through it?*
+
+The age-standardized data might not show the full correlation between
+two variables. For instance social support might partially correlate
+with depressive symptoms through the mediator age. (less social support
+might correlate with higher age, which might correlate with higher
+depressive symptoms) But in the end using the age-standardized data
+seemed more reasonable, as I wanted results which indicate a more direct
+effect between social support and depressive symptoms and not
+distortions because of age.
 
 *In hindsight, would we decide differently?*
 
-### Decision 2: \[short title\]
+The decision would stay the same, but maybe we could document this
+contemplation better.
+
+Decision 2: \[short title\]
 
 *What were we deciding between?*
 
@@ -205,6 +228,8 @@ workflow.
 
 *How did we divide work across group members?*
 
+We divided the work by the research questions.
+
 *What branching or Git workflow did we actually use — and did it match
 the proposal?*
 
@@ -214,11 +239,17 @@ the proposal?*
 
 Describe up to 5 significant uses of an LLM tool during the project.
 
-### Usage 1: \[task\]
+### Usage 1: (research question 1) asking about inference method
 
-- **Tool / model:**
-- **What it produced:**
-- **What we had to correct or verify:**
+- **Tool / model: Claude Sonnet 5**
+- **What it produced: I asked it whether I can use the data from
+  aggregated observations for a t-test or to calculate confidence
+  intervals or check for overlapping confidence intervals. It told me
+  that the overlapping intervals method would be a more conservative
+  test.**
+- **What we had to correct or verify: I looked up what the Type-I error
+  chance is for the overlapping confidence likelyhood. Knol et
+  al. (2011) found a 0.0056 chance for 0.95 confidence intervals.**
 
 ### Usage 2: \[task\]
 
