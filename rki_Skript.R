@@ -10,7 +10,6 @@ library(plotly)
 renv::restore()
 #run this if you added a new package
 renv::snapshot()
-renv::snapshot(prune = TRUE)
 
 rki_data <- read_tsv("GBE_Indikatoren_nichtuebertragbarer_Erkrankungen.tsv")
 View(rki_data)
