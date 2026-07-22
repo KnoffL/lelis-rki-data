@@ -4,6 +4,9 @@ library(readr)
 library(tidyverse)
 library(visdat)
 library(tidyr)
+library(ggrepel)
+library(ggplot2)
+library(dplyr)
 
 rki_data <- read_tsv("GBE_Indikatoren_nichtuebertragbarer_Erkrankungen.tsv")
 View(rki_data)
@@ -578,3 +581,38 @@ rki_data_1_2_regional %>%
 # Taken together, there is evidence for a wide-spread decrease in depression rates
 # between 2014 and 2019 except for Thüringen, with a federal increase after,
 # though the data is lacking regional granularity after 2019
+
+# Visualize Germany-wide trend
+# Heavy AI assistance since I am running out of time
+# Illustrating confidence intervals makes sense as sample size has decreased
+# in 2022 and 2023 -> this is the least cluttered way of illustrating that
+p <- ggplot(rki_data_1_2_ger, aes(x = Jahr, y = Wert)) +
+  geom_ribbon(aes(ymin = Unteres_Konfidenzintervall, ymax = Oberes_Konfidenzintervall), fill = "#0072B2", alpha = 0.15) +
+  geom_line(color = "#0072B2", linewidth = 1) +
+  geom_point(color = "#0072B2", size = 2) +
+  geom_text_repel(
+    aes(label = Jahr),
+    size = 3.2,
+    color = "grey30",
+    nudge_y = 0.3,          # push labels up/away from points; tune per your y-scale
+    segment.size = 0.2,
+    min.segment.length = 0
+  ) +
+  scale_x_continuous(breaks = scales::pretty_breaks()) +
+  scale_y_continuous(labels = function(x) paste0(x, " %")) +
+  labs(
+    title = "Depression diagnoses in Germany have risen over time",
+    subtitle = "Share of population with diagnosed depression, by year -
+    width of graph represents 95% confidence interval",
+    x = "Year",
+    y = NULL,  # title/subtitle already state this is a percentage
+    caption = "Data source: Informationssystem der Gesundheitsberichterstattung (GBE-Bund)"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(color = "grey30"),
+    plot.caption = element_text(color = "grey50", hjust = 0)
+  )
+
+p
