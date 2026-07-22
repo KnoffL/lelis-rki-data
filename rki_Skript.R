@@ -4,10 +4,12 @@ library(readr)
 library(tidyverse)
 library(visdat)
 library(tidyr)
+library(ggrepel)
+library(ggplot2)
+library(dplyr)
 library(sf)
 library(rnaturalearth)
 library(leaflet)
-library(dplyr)
 library(stringr)
 library(plotly)
 
@@ -669,6 +671,32 @@ rki_data_1_2_regional %>%
 # between 2014 and 2019 except for Thüringen, with a federal increase after,
 # though the data is lacking regional granularity after 2019
 
+# Visualize Germany-wide trend
+# Heavy AI assistance since I am running out of time
+# Illustrating confidence intervals makes sense as sample size has decreased
+# in 2022 and 2023 -> this is the least cluttered way of illustrating that
+p <- ggplot(rki_data_1_2_ger, aes(x = Jahr, y = Wert)) +
+  geom_ribbon(aes(ymin = Unteres_Konfidenzintervall, ymax = Oberes_Konfidenzintervall), fill = "#0072B2", alpha = 0.15) +
+  geom_line(color = "#0072B2", linewidth = 1) +
+  geom_point(color = "#0072B2", size = 2) +
+  geom_text_repel(
+    aes(label = Jahr),
+    size = 3.2,
+    color = "grey30",
+    nudge_y = 0.3,          # push labels up/away from points; tune per your y-scale
+    segment.size = 0.2,
+    min.segment.length = 0
+  ) +
+  scale_x_continuous(breaks = scales::pretty_breaks()) +
+  scale_y_continuous(labels = function(x) paste0(x, " %")) +
+  labs(
+    title = "Depression diagnoses in Germany have risen over time",
+    subtitle = "Share of population with diagnosed depression, by year -
+    width of graph represents 95% confidence interval",
+    x = "Year",
+    y = NULL,  # title/subtitle already state this is a percentage
+    
+    p
 # Temporal development of depression over time, split by age group
 rki_data_age_time <- rki_data %>%
   filter(Indikator_ID == 2040202) %>% # depression rows
@@ -678,6 +706,7 @@ rki_data_age_time <- rki_data %>%
   filter(Region_ID == 0) %>% # Germany-wide, not regional
   filter(Alter_ID != "00+") %>% # exclude the "all ages" aggregate
   mutate(Jahr = as.numeric(Zeitraum_Name))
+  
 
 # Plot: depression trend over time, one line per age group
 p_age <- ggplot(rki_data_age_time, aes(x = Jahr, y = Wert, color = Alter_Name, group = Alter_Name)) +
