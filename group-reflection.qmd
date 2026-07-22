@@ -150,9 +150,8 @@ you did not use a skill, say so and note why.
 
 - installed renv to ensure all the packagage versions are documented
 
-*What worked well:*
-- doing all analyses in the scripts for reproducibility (not)
-in consoles
+*What worked well:* - doing all analyses in the scripts for
+reproducibility (not) in consoles
 
 *What was hard:*
 
@@ -165,7 +164,8 @@ in consoles
 
 ### Analysis & inference strategies (W10)
 
-*What we did:* Correlation and regression analyses for various groups and models
+*What we did:* Correlation and regression analyses for various groups
+and models
 
 - for research question 2: first I calculated the variance of each
   observation from the given confidence intervals and then aggregated
@@ -176,13 +176,11 @@ in consoles
 *What worked well:*
 
 - using functions and pipes to carry out the calculations
-- using Claude for parts of the analysis (as explained in the
-code), comparing different models.
+- using Claude for parts of the analysis (as explained in the code),
+  comparing different models.
 
-
-*What was hard:* 
-- Inferring which models worked best and why, interpreting the
-results
+*What was hard:* - Inferring which models worked best and why,
+interpreting the results
 
 - the data was only available for population chunks, never for
   individuals; as the data contains sensitive observation the reason is
@@ -205,8 +203,8 @@ results
 
 *What we did:* Visualizing sample sizes
 
-*What worked well:* Asking AI for help on visualizations, including explanations
-for what the parameters are doing
+*What worked well:* Asking AI for help on visualizations, including
+explanations for what the parameters are doing
 
 *What was hard:*
 
@@ -217,28 +215,28 @@ workflow.
 
 ### Decision 1: Picking a data set
 
-*What were we deciding between?* Between our former data set (palmer-penguins)
-and our current data set.
+*What were we deciding between?* Between our former data set
+(palmer-penguins) and our current data set.
 
-*How did we reason through it?* As we did not really have any data cleaning to 
-do on the prior data set and the data set was listed explicitly as being too 
-clean for this course, we switched. The con was that we had already written up
-our project proposal and were a little frustrated as we felt like it had not 
-been communicated enough that we should not choose such a data set beforehand.
+*How did we reason through it?* As we did not really have any data
+cleaning to do on the prior data set and the data set was listed
+explicitly as being too clean for this course, we switched. The con was
+that we had already written up our project proposal and were a little
+frustrated as we felt like it had not been communicated enough that we
+should not choose such a data set beforehand.
 
-*In hindsight, would we decide differently?* Not really. Cleaning the data set
-was less work than we anticipated and honestly, I like the process of writing up
-some easier cleaning code.
+*In hindsight, would we decide differently?* Not really. Cleaning the
+data set was less work than we anticipated and honestly, I like the
+process of writing up some easier cleaning code.
 
 The decision would stay the same, but maybe we could document this
 contemplation better.
 
 ### Decision 1: already using age-standardized values (for Leos analysis)
 
-*What were we deciding between?*
-The indicator values are always given in two variants. Values as
-observed ("beobachtet") or age-standardized values and we had to pick
-one.
+*What were we deciding between?* The indicator values are always given
+in two variants. Values as observed ("beobachtet") or age-standardized
+values and we had to pick one.
 
 *How did we reason through it?*
 
@@ -258,17 +256,20 @@ contemplation better.
 
 ## Workflow & collaboration
 
-*How did we divide work across group members?* In the beginning, we both did what
-we had time to do. For the analyses, we each did one research question.
+*How did we divide work across group members?* In the beginning, we both
+did what we had time to do. For the analyses, we each did one research
+question.
 
-*What branching or Git workflow did we actually use — and did it match the proposal?*
-We both worked on seperate branches and that worked pretty consistently (Lisa just
-took care of some merge conflicts on Leo's branch). We commited to that in the 
-proposal as well. Also, we never merged our own work - so we sticked to our
-proposal there. We, however, did not always make very incremental commits.
+*What branching or Git workflow did we actually use — and did it match
+the proposal?* We both worked on seperate branches and that worked
+pretty consistently (Lisa just took care of some merge conflicts on
+Leo's branch). We commited to that in the proposal as well. Also, we
+never merged our own work - so we sticked to our proposal there. We,
+however, did not always make very incremental commits.
 
-*What would we change about how we coordinated?* Maybe not completing everything
-on the day of the deadline (typing this on the day of the deadline)
+*What would we change about how we coordinated?* Maybe not completing
+everything on the day of the deadline (typing this on the day of the
+deadline)
 
 ## LLM usage
 
@@ -277,11 +278,12 @@ Describe up to 5 significant uses of an LLM tool during the project.
 ### Usage 1: Inverse-Weighted Analyses
 
 - **Tool / model:** Claude
-- **What it produced:** I had prompted it to find a way to take into account the
-variance in sample sizes between groups / times of measurement. It then came up
-with Inverse Weighted Analyses and gave me the codes for that.
-- **What we had to correct or verify:** I added the interpretation of the
-analyses as comments in the script.
+- **What it produced:** I had prompted it to find a way to take into
+  account the variance in sample sizes between groups / times of
+  measurement. It then came up with Inverse Weighted Analyses and gave
+  me the codes for that.
+- **What we had to correct or verify:** I added the interpretation of
+  the analyses as comments in the script.
 
 ### Usage 2: (research question 1) asking about inference method
 
@@ -294,4 +296,4 @@ analyses as comments in the script.
 - **What we had to correct or verify: I looked up what the Type-I error
   chance is for the overlapping confidence likelyhood. Knol et
   al. (2011) found a 0.0056 chance for 0.95 confidence intervals.**
-=======
+  =======
