@@ -1,13 +1,4 @@
 ---
-title: "Plot Test"
-format: html
-execute:
-  echo: true
----
-
-## Test Plot
-
----
 title: "Lisa-results"
 format: html
 editor: visual
@@ -88,6 +79,8 @@ The code is directly taken from rki_Skript.R. Relevant parts have been extracted
 For the sake of having a more complicated plot to practice plot interactivity on, I created the following plot:
 
 ```{r}
+library(plotly)
+
 rki_data_lisa_vis_2 <- rki_data_lisa_vis %>%
   filter(Standardisierung_Name == "beobachtet") %>% # observed (not age-adjusted, since age is our grouping var)
   filter(Region_ID == 0) %>%                        # Germany-wide, not regional
@@ -114,5 +107,5 @@ p_age <- ggplot(rki_data_lisa_vis_2, aes(x = Jahr, y = Wert, color = Alter_Name,
     plot.caption = element_text(color = "grey50", hjust = 0)
   )
 
-p_age
+ggplotly(p_age)
 ```
