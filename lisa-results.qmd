@@ -38,20 +38,20 @@ rki_data <- rki_data %>%
 # Filter to the relevant subset:
 # depression indicator, age-adjusted, across education levels,
 # both genders combined, all age groups combined
-rki_data_1_2 <- rki_data %>%
+rki_data_lisa_vis <- rki_data %>%
   filter(Indikator_ID == 2040202) %>%       # depression rows
-  filter(Standardisierung_ID == 3) %>%      # age-adjusted data
   filter(Bildung_Casmin_ID == 0) %>%        # across education levels
   filter(Geschlecht_ID == 0) %>%            # both genders combined
-  filter(Alter_ID == "00+") %>%             # all age groups
   mutate(Jahr = as.numeric(Zeitraum_Name))
 
 # Germany-wide (i.e. not broken down by region)
-rki_data_1_2_ger <- rki_data_1_2 %>%
-  filter(Region_ID == 0)
+rki_data_lisa_vis_1 <- rki_data_lisa_vis %>%
+  filter(Alter_ID == "00+") %>%             # all age groups
+  filter(Region_ID == 0) %>%
+  filter(Standardisierung_ID == 3)     # age-adjusted data
 
 # Plot: Germany-wide trend with confidence interval ribbon
-p <- ggplot(rki_data_1_2_ger, aes(x = Jahr, y = Wert)) +
+p <- ggplot(rki_data_lisa_vis_1, aes(x = Jahr, y = Wert)) +
   geom_ribbon(aes(ymin = Unteres_Konfidenzintervall, ymax = Oberes_Konfidenzintervall), fill = "#0072B2", alpha = 0.15) +
   geom_line(color = "#0072B2", linewidth = 1) +
   geom_point(color = "#0072B2", size = 2) +
@@ -84,3 +84,35 @@ p
 ```
 
 The code is directly taken from rki_Skript.R. Relevant parts have been extracted and commented by Claude.
+
+For the sake of having a more complicated plot to practice plot interactivity on, I created the following plot:
+
+```{r}
+rki_data_lisa_vis_2 <- rki_data_lisa_vis %>%
+  filter(Standardisierung_Name == "beobachtet") %>% # observed (not age-adjusted, since age is our grouping var)
+  filter(Region_ID == 0) %>%                        # Germany-wide, not regional
+  filter(Alter_ID != "00+")                      # exclude the "all ages" aggregate
+
+# Plot: depression trend over time, one line per age group
+p_age <- ggplot(rki_data_lisa_vis_2, aes(x = Jahr, y = Wert, color = Alter_Name, group = Alter_Name)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = scales::pretty_breaks()) +
+  scale_y_continuous(labels = function(x) paste0(x, " %")) +
+  labs(
+    title = "Depression diagnoses in Germany over time, by age group",
+    subtitle = "Share of population with diagnosed depression, by year and age group",
+    x = "Year",
+    y = NULL,
+    color = "Age group",
+    caption = "Data source: Informationssystem der Gesundheitsberichterstattung (GBE-Bund)"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(color = "grey30"),
+    plot.caption = element_text(color = "grey50", hjust = 0)
+  )
+
+p_age
+```
