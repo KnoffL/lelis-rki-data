@@ -9,6 +9,12 @@ library(rnaturalearth)
 library(leaflet)
 library(dplyr)
 library(stringr)
+library(plotly)
+
+#run this if you haven't run renv yet:
+renv::restore()
+#run this if you added a new package
+renv::snapshot()
 
 rki_data <- read_tsv("GBE_Indikatoren_nichtuebertragbarer_Erkrankungen.tsv")
 View(rki_data)
@@ -23,7 +29,7 @@ rki_data %>%
   filter(Indikator_ID == 2040202) %>%
   nrow()
 
-# number of missing values in Fälle
+# number of missing values in "Fälle"
 rki_data %>%
   filter(is.na(Fälle)) %>%
   nrow()
@@ -110,13 +116,19 @@ bildung_symptom <- rki_data %>%
   filter(Bildung_Casmin_Name != "Gesamt") %>%
   filter(Standardisierung_ID == 3)
 
-# function to calculate weighted average
+#' function to calculate weighted average
+#' 
+#' @param value a numeric vector containing the values to be calculated
+#' @param sample_size a numeric vector containing the n for each value 
+#' @return one value which added each value together weighted by their n
+#' @export
+#' @examples
+#' final_grade <- weighted_average(grades, ETCS)
+#' 
 #' @description value should contain the values to be summed up, sample_size
 #' indicates the weight of the value with the same position, the weight is
-#' #'calculated by deviding the individual sample_size value with the summ of
+#' calculated by dividing the individual sample_size value with the summ of
 #' sample_size
-#' @param name value a numeric vector
-#' @param name sample_size a numeric vector
 weighted_average <- function(value, sample_size) {
   if (!is.vector(value) | !is.vector(sample_size)) {
     stop("At least one of the inputs isn't a vector")
@@ -180,6 +192,12 @@ ggplot(
 
 # leo analysis: second research question
 
+bildung_symptom <- rki_data %>%
+  filter(Indikator_ID == 2040202) %>%
+  filter(!is.na(Bildung_Casmin_Name)) %>%
+  filter(Bildung_Casmin_Name != "Gesamt") %>%
+  filter(Standardisierung_ID == 3)
+
 # point estimators: aggregated values of depressive symptoms for each year and
 # education level with the aggregated sample sizes
 bildung_symptom %>%
@@ -190,10 +208,10 @@ bildung_symptom %>%
   )
 
 # we already have confidence intervals so I will reverse the formula for
-# the confidence interval to caluclate the standard deviation
+# the confidence interval to calculate the standard deviation
 
-# calculate standard deviation from lower confidence intervall
-# for the confidence intervall we will assume a t-distribution and thus
+# calculate standard deviation from lower confidence interval
+# for the confidence interval we will assume a t-distribution and thus
 # use 1.96 as t for the reverse 0.95-confidence interval formula
 variance <- function(conf_low, mean_value, sample_size) {
   variance <- ((mean_value - conf_low) / 1.96)^2 * sample_size
@@ -205,8 +223,8 @@ variance <- function(conf_low, mean_value, sample_size) {
 bildung_symptom <- bildung_symptom %>%
   mutate(Varianz = variance(Unteres_Konfidenzintervall, Wert, Stichprobe))
 
-# this is aggregated values from before plus the weighted mean variances for
-# every year
+# let's use aggregated values from before and calculate the weighted mean 
+#variances for every year
 aggreg <- bildung_symptom %>%
   group_by(Zeitraum_Name, Bildung_Casmin_Name) %>%
   summarize(
@@ -237,8 +255,27 @@ aggreg <- aggreg %>%
   mutate(low_confint = conf_low(Wert, variance, sample_size)) %>%
   mutate(up_confint = conf_up(Wert, variance, sample_size))
 
-# we can see that the intervals never overlap except once!
-
+# we can see that the intervals never overlap except once! (by checking numbers)
+#visualize
+graph_intervals <- ggplot(
+  data = aggreg,
+  mapping = aes(
+    x = Zeitraum_Name,
+    y = Wert
+  )
+) +
+  geom_point() +
+  geom_errorbar(aes(
+      ymin = low_confint,
+      ymax = up_confint)
+  ) +
+  labs(
+    title = "95%-confidence interval for the depressive symptoms 
+    between different education levels in Germany",
+    x = "Years",
+    y = "Intensity of depressive symptoms"
+  )
+ggplotly(graph_intervals)
 # second part of the research question: did the gap of depressive symptoms
 # between the high education group and the general education group decline?
 
@@ -256,8 +293,56 @@ aggreg2 <- bildung2 %>%
   group_by(Zeitraum_Name, Bildung_Casmin_Name) %>%
   summarize(Wert = weighted_average(Wert, Stichprobe))
 
-# I can already see that the difference doesn't become smaller; I will plot
-# a graph
+View(aggreg2)
+# I can already see that the difference doesn't become smaller
+# -->visualization
+
+ggplot(
+  data = aggreg2,
+  mapping = aes(
+    x = Zeitraum_Name,
+    y = Wert,
+    group = Bildung_Casmin_Name,
+    color = Bildung_Casmin_Name
+  )
+) +
+  geom_point() + 
+  geom_line() +
+  labs(
+    title = "depressive symptoms of the general ('Gesamt') and 
+    high ('hoch') education population over time in Germany",
+    x = "Years",
+    y = "depressive symptoms"
+  )
+
+#look for analysis potential to examine relation between depressive symptoms
+#and socio-economic factors (the Variable GISD_Name)
+rki_data %>% filters(Indikator_ID == 2040202) %>%
+  group_by(GISD_Name) %>%
+  summarise(n = n())
+#One can not say anything about the relation between depressive symptoms and 
+#socio-economic factors, as there is no observation containing both measures
+#(other measurement is always NA)
+
+#post-analysis correction note:
+
+#as I noted in the reflection I forgot to use the Bessel correcture 
+#(divide by n-1, insteasd of n): so here is a modified weighted average function 
+#to do it correctly next time
+
+bessel_weighted_average <- function(value, sample_size) {
+  s <- sum(sample_size)
+  result <- 0
+  for (x in 1:length(value)) {
+    result <- result + value[x] * sample_size[x] / (s - 1)
+  }
+  return(result)
+}
+
+#end of Leo's analysis and research question 2
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+
 
 # Get and view relevant rows for first research question
 rki_data_1 <- rki_data %>%
