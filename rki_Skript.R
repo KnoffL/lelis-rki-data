@@ -7,9 +7,6 @@ library(tidyr)
 library(ggrepel)
 library(ggplot2)
 library(dplyr)
-library(sf)
-library(rnaturalearth)
-library(leaflet)
 library(stringr)
 library(plotly)
 
@@ -119,14 +116,14 @@ bildung_symptom <- rki_data %>%
   filter(Standardisierung_ID == 3)
 
 #' function to calculate weighted average
-#' 
+#'
 #' @param value a numeric vector containing the values to be calculated
-#' @param sample_size a numeric vector containing the n for each value 
+#' @param sample_size a numeric vector containing the n for each value
 #' @return one value which added each value together weighted by their n
 #' @export
 #' @examples
 #' final_grade <- weighted_average(grades, ETCS)
-#' 
+#'
 #' @description value should contain the values to be summed up, sample_size
 #' indicates the weight of the value with the same position, the weight is
 #' calculated by dividing the individual sample_size value with the summ of
@@ -225,7 +222,7 @@ variance <- function(conf_low, mean_value, sample_size) {
 bildung_symptom <- bildung_symptom %>%
   mutate(Varianz = variance(Unteres_Konfidenzintervall, Wert, Stichprobe))
 
-# let's use aggregated values from before and calculate the weighted mean 
+# let's use aggregated values from before and calculate the weighted mean
 #variances for every year
 aggreg <- bildung_symptom %>%
   group_by(Zeitraum_Name, Bildung_Casmin_Name) %>%
@@ -272,7 +269,7 @@ graph_intervals <- ggplot(
       ymax = up_confint)
   ) +
   labs(
-    title = "95%-confidence interval for the depressive symptoms 
+    title = "95%-confidence interval for the depressive symptoms
     between different education levels in Germany",
     x = "Years",
     y = "Intensity of depressive symptoms"
@@ -308,10 +305,10 @@ ggplot(
     color = Bildung_Casmin_Name
   )
 ) +
-  geom_point() + 
+  geom_point() +
   geom_line() +
   labs(
-    title = "depressive symptoms of the general ('Gesamt') and 
+    title = "depressive symptoms of the general ('Gesamt') and
     high ('hoch') education population over time in Germany",
     x = "Years",
     y = "depressive symptoms"
@@ -319,17 +316,17 @@ ggplot(
 
 #look for analysis potential to examine relation between depressive symptoms
 #and socio-economic factors (the Variable GISD_Name)
-rki_data %>% filters(Indikator_ID == 2040202) %>%
+rki_data %>% filter(Indikator_ID == 2040202) %>%
   group_by(GISD_Name) %>%
   summarise(n = n())
-#One can not say anything about the relation between depressive symptoms and 
+#One can not say anything about the relation between depressive symptoms and
 #socio-economic factors, as there is no observation containing both measures
 #(other measurement is always NA)
 
 #post-analysis correction note:
 
-#as I noted in the reflection I forgot to use the Bessel correcture 
-#(divide by n-1, insteasd of n): so here is a modified weighted average function 
+#as I noted in the reflection I forgot to use the Bessel correcture
+#(divide by n-1, insteasd of n): so here is a modified weighted average function
 #to do it correctly next time
 
 bessel_weighted_average <- function(value, sample_size) {
@@ -695,8 +692,18 @@ p <- ggplot(rki_data_1_2_ger, aes(x = Jahr, y = Wert)) +
     width of graph represents 95% confidence interval",
     x = "Year",
     y = NULL,  # title/subtitle already state this is a percentage
-    
-    p
+
+    caption = "Data source: Informationssystem der Gesundheitsberichterstattung (GBE-Bund)"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(color = "grey30"),
+    plot.caption = element_text(color = "grey50", hjust = 0)
+  )
+
+p
+
 # Temporal development of depression over time, split by age group
 rki_data_age_time <- rki_data %>%
   filter(Indikator_ID == 2040202) %>% # depression rows
@@ -706,7 +713,7 @@ rki_data_age_time <- rki_data %>%
   filter(Region_ID == 0) %>% # Germany-wide, not regional
   filter(Alter_ID != "00+") %>% # exclude the "all ages" aggregate
   mutate(Jahr = as.numeric(Zeitraum_Name))
-  
+
 
 # Plot: depression trend over time, one line per age group
 p_age <- ggplot(rki_data_age_time, aes(x = Jahr, y = Wert, color = Alter_Name, group = Alter_Name)) +
