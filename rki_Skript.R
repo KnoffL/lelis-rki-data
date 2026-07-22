@@ -4,6 +4,11 @@ library(readr)
 library(tidyverse)
 library(visdat)
 library(tidyr)
+library(sf)
+library(rnaturalearth)
+library(leaflet)
+library(dplyr)
+library(stringr)
 library(plotly)
 
 #run this if you haven't run renv yet:
@@ -663,3 +668,36 @@ rki_data_1_2_regional %>%
 # Taken together, there is evidence for a wide-spread decrease in depression rates
 # between 2014 and 2019 except for Thüringen, with a federal increase after,
 # though the data is lacking regional granularity after 2019
+
+# Temporal development of depression over time, split by age group
+rki_data_age_time <- rki_data %>%
+  filter(Indikator_ID == 2040202) %>% # depression rows
+  filter(Standardisierung_Name == "beobachtet") %>% # observed (not age-adjusted, since age is our grouping var)
+  filter(Bildung_Casmin_ID == 0) %>% # across education levels
+  filter(Geschlecht_ID == 0) %>% # both genders combined
+  filter(Region_ID == 0) %>% # Germany-wide, not regional
+  filter(Alter_ID != "00+") %>% # exclude the "all ages" aggregate
+  mutate(Jahr = as.numeric(Zeitraum_Name))
+
+# Plot: depression trend over time, one line per age group
+p_age <- ggplot(rki_data_age_time, aes(x = Jahr, y = Wert, color = Alter_Name, group = Alter_Name)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = scales::pretty_breaks()) +
+  scale_y_continuous(labels = function(x) paste0(x, " %")) +
+  labs(
+    title = "Depression diagnoses in Germany over time, by age group",
+    subtitle = "Share of population with diagnosed depression, by year and age group",
+    x = "Year",
+    y = NULL,
+    color = "Age group",
+    caption = "Data source: Informationssystem der Gesundheitsberichterstattung (GBE-Bund)"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(color = "grey30"),
+    plot.caption = element_text(color = "grey50", hjust = 0)
+  )
+
+p_age
