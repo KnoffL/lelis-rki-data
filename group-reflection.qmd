@@ -103,10 +103,13 @@ you did not use a skill, say so and note why.
 *What we did:*
 
 - use imports as to not code pre-existing functionality
+- experimented with making a new package project to use roxygen2
 
 *What worked well:*
 
 - rather clean code
+- using the help function with own function descriptions when
+  experimenting with roxygen2
 
 *What was hard:*
 
@@ -114,6 +117,9 @@ you did not use a skill, say so and note why.
   packages I feel like that is okay, also most packages were standard so
   when people pull our project most users should not experience too many
   problems
+- running renv snapshot troublesome while I experimented with the extra
+  package project, as I had to install the new package to snapshot, but
+  it couldn't complete the installation process
 
 ### Initial data analysis & data cleaning (W7)
 
@@ -201,12 +207,24 @@ interpreting the results
 
 ### Communication & visualisation (W11)
 
-*What we did:* Visualizing sample sizes
+*What we did:*
 
-*What worked well:* Asking AI for help on visualizations, including
-explanations for what the parameters are doing
+- Visualizing sample sizes
+
+- applied ggplotly for better plot readability
+
+- loving ggplot
+
+*What worked well:*
+
+- Asking AI for help on visualizations, including explanations for what
+  the parameters are doing
 
 *What was hard:*
+
+- for one graphic I first used group_by() and summary() to quickly
+  simplify the data, but the grouping interfered with the plotting, took
+  a lot of tries to fix
 
 ## Key analytical decisions
 
