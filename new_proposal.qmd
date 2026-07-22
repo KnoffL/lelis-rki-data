@@ -313,8 +313,6 @@ Cleaning / transformation steps needed:
 
 - isolate the observations where the variable "Bildung_Casmin_Name" is either high ("hoch"), medium ("mittel") or low ("niedrig") and where depressive symptoms are given
 
-- rename Indikator_ID to "depressive symptoms"
-
 - remove the observations that are not age-standardized
 
 - calculate weighted average for values of each year and education level
@@ -324,8 +322,8 @@ Cleaning / transformation steps needed:
 Uncertainties:
 
 - relevant observations are only present for the years 2014, 2019, 2022 and 2023; thus fluctuations over few years might distort the picture
-- We only have group statistics and not individual statistics, so we can not make t-tests as they are based on the knowledge of the distribution of values, but we can still calculate confidence intervalls
-- there are no relevant indicators or demgraphic measures which were measured at the same time, so we can not control for a variable like socio-economic stability. That means that an important possible confounder can not be properly accounted for
+- We only have group statistics and not individual statistics, so we can not make t-tests as they are based on the knowledge of the distribution of values, but we can still calculate confidence intervals
+- there are no relevant indicators or demographic measures which were measured at the same time, so we can not control for a variable like socio-economic stability. That means that an important possible confounder can not be properly accounted for
 - we assume that the observations are independent of each other. But maybe people get to this study because family members reccommend it (for example), so some data points might be not independent which would affect the analysis
 
 Workflow organization:
