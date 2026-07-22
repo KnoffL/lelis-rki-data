@@ -218,8 +218,8 @@ variance <- function(conf_low, mean_value, sample_size) {
 bildung_symptom <- bildung_symptom %>%
   mutate(Varianz = variance(Unteres_Konfidenzintervall, Wert, Stichprobe))
 
-# this is aggregated values from before plus the weighted mean variances for
-# every year
+# let's use aggregated values from before and calculate the weighted mean 
+#variances for every year
 aggreg <- bildung_symptom %>%
   group_by(Zeitraum_Name, Bildung_Casmin_Name) %>%
   summarize(
@@ -318,6 +318,21 @@ rki_data %>% filters(Indikator_ID == 2040202) %>%
 #One can not say anything about the relation between depressive symptoms and 
 #socio-economic factors, as there is no observation containing both measures
 #(other measurement is always NA)
+
+#post-analysis correction note:
+
+#as I noted in the reflection I forgot to use the Bessel correcture 
+#(divide by n-1, insteasd of n): so here is a modified weighted average function 
+#to do it correctly next time
+
+bessel_weighted_average <- function(value, sample_size) {
+  s <- sum(sample_size)
+  result <- 0
+  for (x in 1:length(value)) {
+    result <- result + value[x] * sample_size[x] / (s - 1)
+  }
+  return(result)
+}
 
 #end of Leo's analysis and research question 2
 #------------------------------------------------------------------------------
