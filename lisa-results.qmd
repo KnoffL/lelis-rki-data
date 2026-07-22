@@ -30,16 +30,16 @@ rki_data <- rki_data %>%
 # depression indicator, age-adjusted, across education levels,
 # both genders combined, all age groups combined
 rki_data_lisa_vis <- rki_data %>%
-  filter(Indikator_ID == 2040202) %>%       # depression rows
-  filter(Bildung_Casmin_ID == 0) %>%        # across education levels
-  filter(Geschlecht_ID == 0) %>%            # both genders combined
+  filter(Indikator_ID == 2040202) %>% # depression rows
+  filter(Bildung_Casmin_ID == 0) %>% # across education levels
+  filter(Geschlecht_ID == 0) %>% # both genders combined
   mutate(Jahr = as.numeric(Zeitraum_Name))
 
 # Germany-wide (i.e. not broken down by region)
 rki_data_lisa_vis_1 <- rki_data_lisa_vis %>%
-  filter(Alter_ID == "00+") %>%             # all age groups
+  filter(Alter_ID == "00+") %>% # all age groups
   filter(Region_ID == 0) %>%
-  filter(Standardisierung_ID == 3)     # age-adjusted data
+  filter(Standardisierung_ID == 3) # age-adjusted data
 
 # Plot: Germany-wide trend with confidence interval ribbon
 p <- ggplot(rki_data_lisa_vis_1, aes(x = Jahr, y = Wert)) +
@@ -83,8 +83,8 @@ library(plotly)
 
 rki_data_lisa_vis_2 <- rki_data_lisa_vis %>%
   filter(Standardisierung_Name == "beobachtet") %>% # observed (not age-adjusted, since age is our grouping var)
-  filter(Region_ID == 0) %>%                        # Germany-wide, not regional
-  filter(Alter_ID != "00+")                      # exclude the "all ages" aggregate
+  filter(Region_ID == 0) %>% # Germany-wide, not regional
+  filter(Alter_ID != "00+") # exclude the "all ages" aggregate
 
 # Plot: depression trend over time, one line per age group
 p_age <- ggplot(rki_data_lisa_vis_2, aes(x = Jahr, y = Wert, color = Alter_Name, group = Alter_Name)) +

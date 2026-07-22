@@ -4,6 +4,11 @@ library(readr)
 library(tidyverse)
 library(visdat)
 library(tidyr)
+library(sf)
+library(rnaturalearth)
+library(leaflet)
+library(dplyr)
+library(stringr)
 
 rki_data <- read_tsv("GBE_Indikatoren_nichtuebertragbarer_Erkrankungen.tsv")
 View(rki_data)
@@ -581,12 +586,12 @@ rki_data_1_2_regional %>%
 
 # Temporal development of depression over time, split by age group
 rki_data_age_time <- rki_data %>%
-  filter(Indikator_ID == 2040202) %>%              # depression rows
+  filter(Indikator_ID == 2040202) %>% # depression rows
   filter(Standardisierung_Name == "beobachtet") %>% # observed (not age-adjusted, since age is our grouping var)
-  filter(Bildung_Casmin_ID == 0) %>%                # across education levels
-  filter(Geschlecht_ID == 0) %>%                    # both genders combined
-  filter(Region_ID == 0) %>%                        # Germany-wide, not regional
-  filter(Alter_ID != "00+") %>%                      # exclude the "all ages" aggregate
+  filter(Bildung_Casmin_ID == 0) %>% # across education levels
+  filter(Geschlecht_ID == 0) %>% # both genders combined
+  filter(Region_ID == 0) %>% # Germany-wide, not regional
+  filter(Alter_ID != "00+") %>% # exclude the "all ages" aggregate
   mutate(Jahr = as.numeric(Zeitraum_Name))
 
 # Plot: depression trend over time, one line per age group
