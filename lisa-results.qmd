@@ -1,26 +1,86 @@
 ---
+title: "Plot Test"
+format: html
+execute:
+  echo: true
+---
+
+## Test Plot
+
+---
 title: "Lisa-results"
 format: html
 editor: visual
 ---
 
-## Quarto
+## Depression trend
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
+Interesting results of our analyses in the existing dataset included the trend analysis of the share of depression diagnoses in the population from 2014:
 
 ```{r}
 #| echo: false
-2 * 2
+
+library(readr)
+library(tidyverse)
+library(ggrepel)
+library(ggplot2)
+library(dplyr)
+
+# Load data
+rki_data <- read_tsv("GBE_Indikatoren_nichtuebertragbarer_Erkrankungen.tsv")
+
+# Region_ID is read as character due to some international rows mixed in;
+# convert to numeric and drop those non-German rows
+rki_data <- rki_data %>%
+  mutate(Region_ID = as.numeric(Region_ID)) %>%
+  filter(!is.na(Region_ID))
+
+# Filter to the relevant subset:
+# depression indicator, age-adjusted, across education levels,
+# both genders combined, all age groups combined
+rki_data_1_2 <- rki_data %>%
+  filter(Indikator_ID == 2040202) %>%       # depression rows
+  filter(Standardisierung_ID == 3) %>%      # age-adjusted data
+  filter(Bildung_Casmin_ID == 0) %>%        # across education levels
+  filter(Geschlecht_ID == 0) %>%            # both genders combined
+  filter(Alter_ID == "00+") %>%             # all age groups
+  mutate(Jahr = as.numeric(Zeitraum_Name))
+
+# Germany-wide (i.e. not broken down by region)
+rki_data_1_2_ger <- rki_data_1_2 %>%
+  filter(Region_ID == 0)
+
+# Plot: Germany-wide trend with confidence interval ribbon
+p <- ggplot(rki_data_1_2_ger, aes(x = Jahr, y = Wert)) +
+  geom_ribbon(aes(ymin = Unteres_Konfidenzintervall, ymax = Oberes_Konfidenzintervall), fill = "#0072B2", alpha = 0.15) +
+  geom_line(color = "#0072B2", linewidth = 1) +
+  geom_point(color = "#0072B2", size = 2) +
+  geom_text_repel(
+    aes(label = Jahr),
+    size = 3.2,
+    color = "grey30",
+    nudge_y = 0.3,
+    segment.size = 0.2,
+    min.segment.length = 0
+  ) +
+  scale_x_continuous(breaks = scales::pretty_breaks()) +
+  scale_y_continuous(labels = function(x) paste0(x, " %")) +
+  labs(
+    title = "Depression diagnoses in Germany have risen over time",
+    subtitle = "Share of population with diagnosed depression, by year -
+    width of graph represents 95% confidence interval",
+    x = "Year",
+    y = NULL,
+    caption = "Data source: Informationssystem der Gesundheitsberichterstattung (GBE-Bund)"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(color = "grey30"),
+    plot.caption = element_text(color = "grey50", hjust = 0)
+  )
+
+p
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+The code is directly taken from rki_Skript.R. Relevant parts have been extracted and commented by Claude.
