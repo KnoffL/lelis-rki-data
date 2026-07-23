@@ -1,0 +1,16 @@
+---
+title: "leo_contribution-statement"
+format: html
+editor: visual
+---
+
+## Leonardo Stefanidi — Contribution Statement
+
+**Primarily responsible for:** planning, analysis and visualisation of research question 2
+
+- examined important variables and made plots for proposal
+- Co-authored the research questions section
+- data preparation, functions, analysis and visualization for research question 2
+- main part: line 102 -340 in RKI-Skript
+
+**Collaborative tasks:** group reflection
