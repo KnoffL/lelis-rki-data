@@ -1,0 +1,46 @@
+---
+title: "contribution-lisa"
+author: "Lisa"
+format: pdf
+editor: visual
+---
+
+## Project Proposal
+
+Added key statistics section:
+
+- looked at missing values
+
+- looked at sample sizes for different age groups and gender
+
+- looked at Unsicherheit
+
+Furthermore:
+
+- Analysis plan for first research question
+
+## Data cleaning
+
+- checked content of Region_ID and then converted to numeric
+
+- create start and end date columns
+
+- convert doubles to integers
+
+- add unique row identifier
+
+## Analysis of first research question
+
+- Analysis question according to research plan
+
+- Create visualisations in lisa-results.qmd
+
+## Workflow
+
+- Specified workflow in previous project proposal
+
+- Set up Github
+
+- Reviewed Leo's pull requests
+
+- Contributed to group reflection
